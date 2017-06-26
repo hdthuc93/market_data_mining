@@ -1,0 +1,25 @@
+{
+    "camelcase": true,
+    "curly": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": false,
+    "newcap": true,
+    "noarg": true,
+    "nonbsp": true,
+    "quotmark": "single",
+    "undef": true,
+    "unused": true,
+    "trailing": true,
+    "maxlen": 160,
+
+    "jquery": true,
+
+    "globals": {
+        "angular": false,
+        "setInterval": false,
+        "navigator": false,
+        "window": false
+    }
+}
