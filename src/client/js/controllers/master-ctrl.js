@@ -3,7 +3,7 @@
  * Implement: Phong Nguyen
  */
 
-angular.module('martketManagementetManagement')
+angular.module('RDash')
     .controller('MasterCtrl', ['$scope', '$cookieStore','$http','$rootScope','$timeout','helper', MasterCtrl]);
 
 function MasterCtrl($scope, $cookieStore, $http, $rootScope,$timeout,helper) {

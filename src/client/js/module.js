@@ -1,4 +1,4 @@
-var module = angular.module('martketMgr', [
+var module = angular.module('RDash', [
 'ui.bootstrap', 
 'ui.router', 
 'ngCookies', 
@@ -32,13 +32,13 @@ module.factory('Auth',['$cookieStore','$rootScope',function($cookieStore,$rootSc
 }] )
 module.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
      $rootScope.$on('$locationChangeStart', function (event) {
-        if (!Auth.isLoggedIn()) {
-            $location.path('/login');
-        }
-        else {
-            $rootScope.masterUserName = Auth.getUser().name;
-            //$location.path('/');
-        }
+//        if (!Auth.isLoggedIn()) {
+//            $location.path('/login');
+//        }
+//        else {
+//            $rootScope.masterUserName = Auth.getUser().name;
+//            //$location.path('/');
+//        }
     });
 }]);
 

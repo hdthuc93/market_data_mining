@@ -4,7 +4,7 @@
  */
 
 angular
-    .module('martketManagement')
+    .module('RDash')
     .directive('rdLoading', ['$http' ,rdLoading]);
 
 function rdLoading($http) {

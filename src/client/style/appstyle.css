@@ -79,9 +79,9 @@ button, textarea, input, select{
     border-bottom: 1px solid #258a3f!important;
 }
 .ui-grid-top-panel {
-  text-shadow: 0px 1px 2px rgba(119, 187, 118, 0.76);
-  background: #11983b;  
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #8dc383), color-stop(1, #11983b))!important;
+    text-shadow: 0px 1px 2px rgba(119, 187, 118, 0.76);
+    background: #11983b;  
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #8dc383), color-stop(1, #11983b))!important;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
     border-right-color: #258a3f!important;
@@ -97,7 +97,7 @@ button, textarea, input, select{
 }
 .ui-grid-cell {
     border-color: #dad1c9!important;
- }
+}
 .ui-grid-cell-contents {
     border-bottom: 1px solid #dad1c9!important;
 }
@@ -158,7 +158,7 @@ button.btn-primary {
     transition: all .2s linear;
 }
 #page-wrapper:not(.open) ul.sidebar .sidebar-title.separator, .sidebar-footer,
- ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-main a:hover {
+ul.sidebar .sidebar-list a:hover, ul.sidebar .sidebar-main a:hover {
     cursor: pointer;
     color: #e7f3d5;
     text-shadow: 0px 1px 2px rgb(0, 0, 0);
@@ -204,28 +204,28 @@ ul.sidebar .sidebar-list a:hover {
 }
 .panel-body {
     padding: 15px;
-    background-color: #f5f0ec;
+    background-color: #fff;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
 }
 .row.header{
-  box-shadow: 0 1px 2px rgba(80, 56, 12, 0.15);
-  background: #f5f0ec;
-  border-bottom: 1px solid #e2d8d1;
+    box-shadow: 0 1px 2px rgba(80, 56, 12, 0.15);
+    background: #f5f0ec;
+    border-bottom: 1px solid #e2d8d1;
 }
 /*Panel - END*/
 
 /*Modal - START*/
 .modal-header,.modal-footer{
-  padding: 10px 15px;
+    padding: 10px 15px;
 }
 .modal-body{
-  padding: 20px 15px;
+    padding: 20px 15px;
 }
 /*Modal - END*/
 
 @media (max-width: 767px){
-     .container-fluid{
+    .container-fluid{
         padding: 5px;
     }
 }
@@ -353,83 +353,83 @@ ul.sidebar li a {
 
 /*Login form - START*/
 .login-form-1 {
-  max-width: 300px;
-  border-radius: 5px;
-  display: inline-block;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075); 
+    max-width: 300px;
+    border-radius: 5px;
+    display: inline-block;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075); 
 }
 .main-login-form {
-  position: relative;
+    position: relative;
 }
 .login-form-1 .form-control {
-  border: 0; 
-  box-shadow: 0 0 0 ; 
-  border-radius: 0;
-  background: transparent;
-  color: #555555;
-  padding: 7px 0;
-  font-weight: bold;
-  height:auto;
-  border-radius: 8px;
-  text-align: center;
-  -webkit-transition: all .2s linear;
-  transition: all .2s linear;
+    border: 0; 
+    box-shadow: 0 0 0 ; 
+    border-radius: 0;
+    background: transparent;
+    color: #555555;
+    padding: 7px 0;
+    font-weight: bold;
+    height:auto;
+    border-radius: 8px;
+    text-align: center;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
 }
 .login-form-1 .form-control::-webkit-input-placeholder {
-  color: #999999;
+    color: #999999;
 }
 .login-form-1 .form-control:-moz-placeholder,
 .login-form-1 .form-control::-moz-placeholder,
 .login-form-1 .form-control:-ms-input-placeholder {
-  color: #999999;
+    color: #999999;
 }
 .login-form-1 .form-group {
-  margin-bottom: 0;
-  border-bottom: 2px solid #efefef;
-  padding-right: 20px;
-  position: relative;
+    margin-bottom: 0;
+    border-bottom: 2px solid #efefef;
+    padding-right: 20px;
+    position: relative;
 }
 .login-form-1 .form-group:last-child {
-  border-bottom: 0;
+    border-bottom: 0;
 }
 .login-group {
-  background: #ffffff;
-  color: #999999;
-  border-radius: 8px;
-  padding: 10px 20px;
+    background: #ffffff;
+    color: #999999;
+    border-radius: 8px;
+    padding: 10px 20px;
 }
 .login-group-checkbox {
-  padding: 5px 0;
+    padding: 5px 0;
 }
 .login-form-1 .login-button {
-  position: absolute;
-  right: -25px;
-  top: 50%;
-  background: #ffffff;
-  color: #999999;
-  padding: 11px 0;
-  width: 50px;
-  height: 50px;
-  margin-top: -25px;
-  border: 5px solid #efefef;
-  border-radius: 50%;
-  transition: all ease-in-out 500ms;
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    background: #ffffff;
+    color: #999999;
+    padding: 11px 0;
+    width: 50px;
+    height: 50px;
+    margin-top: -25px;
+    border: 5px solid #efefef;
+    border-radius: 50%;
+    transition: all ease-in-out 500ms;
 }
 .login-form-1 .login-button:hover {
-  color: #555555;
-  transform: rotate(450deg);
+    color: #555555;
+    transform: rotate(450deg);
 }
 .login-form-1 .login-button.clicked {
-  color: #555555;
+    color: #555555;
 }
 .login-form-1 .login-button.clicked:hover {
-  transform: none;
+    transform: none;
 }
 .login-form-1 .login-button.clicked.success {
-  color: #2ecc71;
+    color: #2ecc71;
 }
 .login-form-1 .login-button.clicked.error {
-  color: #e74c3c;
+    color: #e74c3c;
 }
 .logo {
     padding: 15px 0;
@@ -473,3 +473,58 @@ ul.sidebar li a {
     color: #fff;
 }
 /*Login form - END*/
+
+
+
+
+
+
+
+.tab-content {
+    padding: 15px;
+    border-bottom: 1px solid #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    border-right: 1px solid #E5E5E5;
+}
+
+
+
+.pan-zoom-frame {
+    border: 2px solid black;
+}
+
+.btn-droppable {
+    width: 180px;
+    height: 30px;
+    padding-left: 4px;
+}
+
+.btn-draggable {
+    width: 160px;
+}
+
+.emage {
+    height: 215px;
+}
+
+.grid {
+    width: 500px;
+    height: 250px;
+}
+
+.ui-grid-render-container-body .ui-grid-header-canvas {
+    height: 30px !important;
+}
+.khuvuc-container {
+    height: auto;
+    width: auto;
+    border: 1px solid #333;
+    background-color:  #fff;
+}
+table.khuvuc{
+    /*table-layout: fixed;*/
+}
+td.ngan{
+    width: 15px;
+    height: 10px;
+}

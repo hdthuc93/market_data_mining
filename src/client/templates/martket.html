@@ -1,0 +1,65 @@
+<div class="row" ng-controller="MartketCtrl">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong><span class="fa fa-home"></span> Siêu thị</strong>
+            </div>
+            <div class="panel-body notification-area">
+                <div class="container-fluid">
+                    <form role="form" name="martket" id="martket">
+                        <div class="row form-horizontal">
+                            <uib-tabset active="active"> <!-- select="alertMe()"-->
+                                <uib-tab index="0" heading="View 1">
+                                    <div class="row form-horizontal">
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-8 input-sm">SL kệ:</label>
+                                                <div class="col-xs-4">
+                                                    <input ng-model="data.slKe" ng-init="data.slKe = 1" type="text" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-8 input-sm">Số lượng ngăn:</label>
+                                                <div class="col-xs-4">
+                                                    <input ng-model="data.slNgan" ng-init="data.slNgan = 3" type="text" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-8 input-sm">Kích thước ngăn (1 or 2):</label>
+                                                <div class="col-xs-4">
+                                                    <input ng-model="data.ktNgan" ng-init="data.ktNgan = 2" type="text" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-xs-8 input-sm">Số lượng hàng (trong 1 kệ):</label>
+                                                <div class="col-xs-4">
+                                                    <input ng-model="data.slDong" ng-init="data.slDong = 2" type="text" class="form-control input-sm">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <button ng-click="themKhuVuc()" class="btn btn-sm btn-primary">Thêm</button> 
+                                                    <button ng-click="save()" class="btn btn-sm btn-primary">Lưu</button>
+                                                    <button ng-click="build()" class="btn btn-sm btn-primary">Build</button>
+                                                </div>
+                                            </div>
+                                            <div ui-grid="KhuVucList" class="grid"></div>
+                                        </div>
+
+                                        <div class="col-xs-8" style="padding: 0">
+                                            <!--<panzoomwidget panzoom-id="PanZoom" style="position:absolute;top:10px;left:10px;z-index:1"></panzoomwidget>
+                                            <panzoom id="PanZoom" config="panzoomConfig" model="panzoomModel" style="width:100%; height: 100%">  
+                                            </panzoom>-->
+                                            <div id="main_area" class="col-xs-8" style="padding: 0; height: 100%; width: 100%; border: 1px solid red;">
+                                            </div>
+                                        </div>
+                                </uib-tab>      
+                                <uib-tab index="1" heading="View 2">Static content 2</uib-tab>  
+                            </uib-tabset>     
+                        </div>            
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
