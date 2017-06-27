@@ -5,7 +5,7 @@
 * [Gulp](http://gulpjs.com)
 
 ### Installation
-1. Clone the repository: `git clone https://github.com/hdthuc93/student_management`
+1. Clone the repository: `git clone https://github.com/hdthuc93/market_data_mining.git`
 2. Install the NodeJS dependencies: `npm install`.
 3. Install the Bower dependencies: `bower install`.
 4. Run project: `gulp (run client)`.
