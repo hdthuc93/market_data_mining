@@ -42,36 +42,6 @@ module.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, 
     });
 }]);
 
-module.filter('schoolYearStatusToText', function () {
-    return function (input) {
-        switch (input) {
-            case "1":
-                return "ĐANG DIỄN RA";
-                break;
-            case "2":
-                return "ĐÃ KẾT THÚC";
-                break;
-            default:
-                return "CHƯA MỞ";
-        }
-    };
-});
-
-module.filter('GenderToText', function () {
-    return function (input) {
-        switch (input) {
-            case "1":
-                return "Nam";
-                break;
-            case "0":
-                return "Nữ";
-                break;
-            default:
-                return "Nam";
-        }
-    };
-});
-
 module.filter('toPercent', function () {
     return function (input) {           
         if(typeof input == 'number' && input>=0){

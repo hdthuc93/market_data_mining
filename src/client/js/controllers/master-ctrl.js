@@ -38,20 +38,6 @@ function MasterCtrl($scope, $cookieStore, $http, $rootScope,$timeout,helper) {
         $scope.$apply();
     };
 
-    $rootScope.masterRegulation = [];
-    function getRegulation(){
-        $http({
-            method: 'GET',
-            url: '/api/regulation'
-        }).then(function successCallback(response) {
-            if(response.data.success){
-                $rootScope.masterRegulation = response.data.data;
-            }else{
-                helper.popup.info({title: "Lỗi",message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng tải lại trang.",close: function () {location.reload(); return;}})
-            }
-        });
-    }
-    getRegulation();
-     
+    
      
 }

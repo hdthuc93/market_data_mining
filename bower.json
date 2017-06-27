@@ -3,10 +3,8 @@
   "version": "0.0.1",
   "description": "Quan li sieu thi",
   "homepage": "https://github.com/hdthuc93/market_data_mining",
-  "authors": [
-  ],
-  "contributors": [
-  ],
+  "authors": [],
+  "contributors": [],
   "main": "index.html",
   "license": "MIT",
   "ignore": [
@@ -26,7 +24,8 @@
     "font-awesome": "~4.7.0",
     "angular-ui-grid": "^4.0.4",
     "jquery-ui": "^1.12.1",
-    "angularjs-slider": "^6.1.2"
+    "angularjs-slider": "^6.1.2",
+    "angular-pan-zoom": "^1.0.18"
   },
   "repository": {
     "type": "git",

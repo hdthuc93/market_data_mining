@@ -7,6 +7,7 @@ angular.module('RDash')
         .controller('MartketCtrl', ['$scope', '$cookieStore', '$http', '$rootScope', '$timeout', 'helper', MartketCtrl]);
 
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
+    $scope.selectedTab = 0;
     $scope.panzoomConfig = {
         zoomLevels: 5,
         neutralZoomLevel: 1,
@@ -159,6 +160,11 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         }
 
+        $(".khuvuc-container").click(function(e){
+            console.log(2222,this,e);
+            $scope.selectedTab = 1;
+        })
+
         $(".khuvuc-container").draggable({
             create: function (event, ui) {
                 for (var i = 0; i < $scope.KhuVuc.length; i++) {
@@ -182,6 +188,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
     }
+    $scope.build();
 
     function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sd = 1;
@@ -218,6 +225,181 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             angle = 0;
         }
         return (angle < 0) ? angle + 360 : angle;
+    }
+
+    var initialW, initialH;
+    setTimeout(function(){
+        $("#main_area").mousedown(function (e) {
+            console.log('111111',e)
+            $("#big-ghost").remove();
+            $(".ghost-select").addClass("ghost-active");
+            $(".ghost-select").css({
+                'left': e.pageX,
+                'top': e.pageY
+            });
+
+            initialW = e.pageX;
+            initialH = e.pageY;
+
+            $("#main_area").bind("mouseup", selectElementsPriority); //selectElements or selectElementsPriority
+            $("#main_area").bind("mousemove", openSelector);
+
+        });
+    },2000)
+    
+
+    function selectElementsPriority(e) {
+        $(document).unbind("mousemove", openSelector);
+        $(document).unbind("mouseup", selectElementsPriority);
+        var maxX = 0;
+        var minX = 5000;
+        var maxY = 0;
+        var minY = 5000;
+        var totalElements = 0;
+        var elementArr = new Array();
+
+        var priority = {
+            ele: null,
+            distance:  9007199254740992
+        };//uu tien
+
+        $(".elements").each(function () {
+            var aElem = $(".ghost-select");
+            var bElem = $(this);
+            var result = doObjectsCollide(aElem, bElem);
+            //tinh toan
+            if (result && priority.distance > (bElem.offset().left + bElem.offset().top)) {
+                priority = {
+                    ele: bElem,
+                    distance: bElem.offset().left + bElem.offset().top
+                }
+            }
+        });
+
+        if (priority.ele) {
+            var bElem = priority.ele;
+            $("#score>span").text(Number($("#score>span").text()) + 1);
+            var aElemPos = bElem.offset();
+            var bElemPos = bElem.offset();
+            var aW = bElem.width();
+            var aH = bElem.height();
+            var bW = bElem.width();
+            var bH = bElem.height();
+
+            var parent = bElem.parent();
+
+            if (bElem.css("left") === "auto" && bElem.css("top") === "auto") {
+                bElem.css({
+                    'left': parent.css('left'),
+                    'top': parent.css('top')
+                });
+            }
+            $("body").append("<div id='big-ghost' class='big-ghost' x='" + Number(aElemPos.top - 20) + "' y='" + Number(aElemPos.left - 10) + "'></div>");
+
+            $("#big-ghost").css({
+                'width': aW + 40,
+                'height': aH + 20,
+                'top': aElemPos.top - 10,
+                'left': aElemPos.left - 20
+            });
+        }
+
+        $(".ghost-select").removeClass("ghost-active");
+        $(".ghost-select").width(0).height(0);
+
+        ////////////////////////////////////////////////
+
+    }
+
+    function openSelector(e) {
+        var w = Math.abs(initialW - e.pageX);
+        var h = Math.abs(initialH - e.pageY);
+
+        $(".ghost-select").css({
+            'width': w,
+            'height': h
+        });
+        if (e.pageX <= initialW && e.pageY >= initialH) {
+            $(".ghost-select").css({
+                'left': e.pageX
+            });
+        } else if (e.pageY <= initialH && e.pageX >= initialW) {
+            $(".ghost-select").css({
+                'top': e.pageY
+            });
+        } else if (e.pageY < initialH && e.pageX < initialW) {
+            $(".ghost-select").css({
+                'left': e.pageX,
+                "top": e.pageY
+            });
+        }
+    }
+
+
+    function doObjectsCollide(a, b) { // a and b are your objects
+        //console.log(a.offset().top,a.position().top, b.position().top, a.width(),a.height(), b.width(),b.height());
+        var aTop = a.offset().top;
+        var aLeft = a.offset().left;
+        var bTop = b.offset().top;
+        var bLeft = b.offset().left;
+
+        return !(
+            ((aTop + a.height()) < (bTop)) ||
+            (aTop > (bTop + b.height())) ||
+            ((aLeft + a.width()) < bLeft) ||
+            (aLeft > (bLeft + b.width()))
+        );
+    }
+
+    function checkMaxMinPos(a, b, aW, aH, bW, bH, maxX, minX, maxY, minY) {
+        'use strict';
+
+        if (a.left < b.left) {
+            if (a.left < minX) {
+                minX = a.left;
+            }
+        } else {
+            if (b.left < minX) {
+                minX = b.left;
+            }
+        }
+
+        if (a.left + aW > b.left + bW) {
+            if (a.left > maxX) {
+                maxX = a.left + aW;
+            }
+        } else {
+            if (b.left + bW > maxX) {
+                maxX = b.left + bW;
+            }
+        }
+        ////////////////////////////////
+        if (a.top < b.top) {
+            if (a.top < minY) {
+                minY = a.top;
+            }
+        } else {
+            if (b.top < minY) {
+                minY = b.top;
+            }
+        }
+
+        if (a.top + aH > b.top + bH) {
+            if (a.top > maxY) {
+                maxY = a.top + aH;
+            }
+        } else {
+            if (b.top + bH > maxY) {
+                maxY = b.top + bH;
+            }
+        }
+
+        return {
+            'maxX': maxX,
+            'minX': minX,
+            'maxY': maxY,
+            'minY': minY
+        };
     }
 
 }
