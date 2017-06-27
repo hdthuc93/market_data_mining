@@ -9,7 +9,7 @@
 2. Install the NodeJS dependencies: `npm install`.
 3. Install the Bower dependencies: `bower install`.
 4. Run project: `gulp (run client)`.
-[http://localhost:3000](http://localhost:8899).
+[http://localhost:8899](http://localhost:8899).
 
 Ensure your preferred web server points towards the `dist` directory.
 
