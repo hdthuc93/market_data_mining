@@ -1,0 +1,35 @@
+<div ng-controller="viewScoreCtrl">
+  <div class="row form-horizontal">
+    <h4 ng-bind="title"></h4>
+  </div>
+  <div class="row form-horizontal">
+    <div class="col-xs-12 no-padding">
+      <label class="radio-inline"><input checked ng-change="showSelectArea()"  ng-model="showSelect" value="student" type="radio" name="optViewScore">Theo học sinh</label>
+      <label class="radio-inline"><input ng-change="showSelectArea()" ng-model="showSelect" value="subject" type="radio" name="optViewScore">Theo môn học</label>
+    </div>
+    <div class="col-xs-12 no-padding">
+      <label class="radio-inline"><input checked ng-model="semesterID" value="1" type="radio" name="sesmter">Học kì I</label>
+      <label class="radio-inline"><input ng-model="semesterID" value="2" type="radio" name="sesmter">Học kì II</label>
+    </div>
+  </div>
+  <div class="row form-horizontal" ng-show="showSelect=='subject'&&semesterID">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 no-padding">
+      <select ng-change="getScoreList()" ng-model="selectedSubject" class="form-control input-sm">
+          <option ng-selected="1" value="">Chọn môn học</option>
+          <option ng-repeat="subject in subjectList" value="{{subject.subjectID}}">{{subject.subjectName}}</option>                                          
+      </select>
+    </div>
+  </div>
+  <div class="row form-horizontal" ng-show="showSelect=='student'&&semesterID">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 no-padding">
+      <select ng-change="getScoreList()" ng-model="selectedStudent" class="form-control input-sm">
+          <option ng-selected="1" value="">Chọn học sinh</option>
+          <option ng-repeat="student in studentList" value="{{student.studentID}}">{{student.name}}</option>                                          
+      </select>
+    </div>
+  </div>
+  <div class="row form-horizontal">
+    <div ng-if="scoreListBySubject.data.length" id="list-score" ui-grid-resize-columns ui-grid="scoreListBySubject" class="grid"><span ng-show="scoreListBySubject.data.length==0" class="grid-status">Chưa có dữ liệu</span></div>
+    <div ng-if="scoreListByStudent.data.length" id="list-score" ui-grid-resize-columns ui-grid="scoreListByStudent" class="grid"><span ng-show="scoreListByStudent.data.length==0" class="grid-status">Chưa có dữ liệu</span></div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="login-container" ng-controller="loginCtrl">
+         <div class="text-center" style="padding:50px 0">
+            <div class="logo text-uppercase">{{title}}</div>
+            <!-- Login Form -->
+            <div ng-show="showLogin" class="login-form-1">
+              <form id="login-form" name="loginForm" class="text-left">
+                <div class="login-form-main-message"></div>
+                <div class="main-login-form">
+                  <div class="login-group">
+                    <div class="form-group">
+                      <label for="lg_username" class="sr-only">Tên đăng nhập</label>
+                      <input required type="text" class="form-control text-lowercase" id="lg_username" name="lg_username" ng-model="username" placeholder="tên đăng nhập" maxlength="30" 
+                      ng-class="{'input-error': loginForm.lg_username.$touched && loginForm.lg_username.$invalid }"
+                       title="Tên đăng nhập là bắt buộc">
+                    </div>
+                    <div class="form-group">
+                      <label for="lg_password" class="sr-only">Mật khẩu</label>
+                      <input required type="password" class="form-control" id="lg_password" name="lg_password" ng-model="password" placeholder="mật khẩu"  
+                      ng-class="{'input-error': loginForm.lg_password.$touched && loginForm.lg_password.$invalid }"  title="Mật khấu là bắt buộc">
+                    </div>
+                  </div>
+                  <button ng-click="login()" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                </div>
+              </form>
+            </div>
+            <!-- end:Login Form -->
+            <!-- Register Form -->
+            <div ng-show="!showLogin" class="login-form-1">
+              <form id="register-form" name="registerForm" class="text-left">
+                <div class="login-form-main-message"></div>
+                <div class="main-login-form">
+                  <div class="login-group">
+                    <div class="form-group">
+                      <label for="lg_username" class="sr-only">Tên đăng nhập</label>
+                      <input required type="text" class="form-control text-lowercase" id="lg_username" name="lg_username" ng-model="regUsername" placeholder="tên đăng nhập" maxlength="30" 
+                      ng-class="{'input-error': registerForm.lg_username.$touched && registerForm.lg_username.$invalid }"
+                       title="Tên đăng nhập là bắt buộc">
+                    </div>
+                    <div class="form-group">
+                      <label for="lg_password" class="sr-only">Mật khẩu</label>
+                      <input required type="password" class="form-control" id="lg_password" name="lg_password" ng-model="regPassword" placeholder="mật khẩu"  
+                      ng-class="{'input-error': registerForm.lg_password.$touched && registerForm.lg_password.$invalid }"  title="Mật khấu là bắt buộc">
+                    </div>
+                     <div class="form-group">
+                      <label for="lg_password" class="sr-only">Xác nhận mật khẩu</label>
+                      <input required type="password" ng-pattern="regPassword" class="form-control" id="lg_repassword" name="lg_repassword" ng-model="regRePassword" placeholder="xác nhận mật khẩu"  
+                      ng-class="{'input-error': (registerForm.lg_repassword.$touched && registerForm.lg_repassword.$error.pattern) ||
+                      (registerForm.lg_repassword.$touched && registerForm.lg_repassword.$invalid) }"  title="Xác nhận mật khấu là bắt buộc">
+                    </div>
+                    <div class="form-group">
+                      <label for="lg_username" class="sr-only">Họ tên</label>
+                      <input required type="text" class="form-control" id="lg_fullrname" name="lg_fullname" ng-model="regFullname" placeholder="họ tên" maxlength="30" 
+                      ng-class="{'input-error': (registerForm.lg_fullname.$touched && registerForm.lg_fullname.$invalid) }"
+                       title="Tên đầy đủ là bắt buộc">
+                    </div>
+                  </div>
+                  <button ng-click="signup()" type="submit" class="login-button"><i class="fa fa-arrow-right"></i></button>
+                </div>
+              </form>
+            </div>
+            <!-- end:Register Form -->
+            <div class="etc-login-form">
+              <p ng-show="showLogin">Đăng kí mới? <a ng-click="showRegisterForm()" href="#">bấm vào đây</a>  <i class="fa fa-user-plus"></p>
+              <p ng-show="!showLogin"><a ng-click="showLoginForm()"  href="#"><i style="margin-right: 5px" class="fa fa-chevron-circle-left"></i>Quay lại</a></p>
+            </div>
+          </div>
+      </div>

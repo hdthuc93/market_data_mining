@@ -1,0 +1,101 @@
+<div class="row" ng-controller="StudentListCtrl">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong><span class="fa fa-id-card"></span> Danh sách học sinh</strong>
+      </div>
+      <div class="panel-body notification-area">
+        <div class="container-fluid">
+          <form role="form" name="studentFormSearch" id="studentFormSearch">
+            <div class="row form-horizontal">
+              <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Mã HS:</label>
+                  <div class="col-xs-7">
+                    <input name="studentCode" ng-pattern="studentCodePattern" ng-model="options.studentCode" type="text" class="form-control input-sm"
+                      ng-class="{'input-error': studentFormSearch.studentCode.$touched && studentFormSearch.studentCode.$invalid }"
+                      title="Mã học sinh phải là tối đa 8 kí tự số nguyên">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Họ Tên:</label>
+                  <div class="col-xs-7">
+                    <input ng-model="options.name" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Giới Tính</label>
+                  <div class="col-xs-7">
+                    <select ng-model="options.gender" class="form-control input-sm">
+                        <option value="" selected>Tất cả</option>
+                        <option value="1">Nam</option>
+                        <option value="0">Nữ</option>                                                
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Email</label>
+                  <div class="col-xs-7">
+                    <input ng-model="options.email" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Ng.S Từ:</label>
+                  <div class="col-xs-7">
+                    <input disabled id="from" ng-model="options.birthdayFrom" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Ng.S Đến:</label>
+                  <div class="col-xs-7">
+                    <input disabled id="to" ng-model="options.birthdayTo" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Địa chỉ</label>
+                  <div class="col-xs-7">
+                    <input ng-model="options.address" type="text" class="form-control input-sm">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Nhập học</label>
+                  <div class="col-xs-7">
+                    <select ng-model="options.yearAdmission" class="form-control input-sm">
+                        <option value="" selected>Tất cả</option>
+                        <option ng-repeat="data in schoolYear" value="{{data.schoolYearID}}">{{data.schoolYearName}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-xs-12 text-right">
+                    <button type="submit" ng-disabled="studentFormSearch.$invalid" class="btn btn-primary btn-xs" ng-click="getStudentList()"><i class="fa fa-search"></i> Tìm</button>
+                    <button type="button" class="btn btn-primary btn-xs" ng-click="reset()"><i class="fa fa-reply"></i> Làm lại</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row form-horizontal">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-xs" ng-click="addStudent()"><i class="fa fa-plus-circle"></i> Thêm</button>
+              <button type="button" class="btn btn-primary btn-xs" ng-click="viewStudent()" ng-disabled="!selectedRow"><i class="fa fa-id-card-o"></i> Xem</button>
+              <button type="button" class="btn btn-primary btn-xs" ng-click="editStudent()" ng-disabled="!selectedRow"><i class="fa fa-pencil"></i> Sửa</button>
+              <button type="button" class="btn btn-primary btn-xs" ng-click="removeStudent()" ng-disabled="!selectedRow"><i class="fa fa-times"></i> Xoá</button>
+            </div>
+          </div>
+          <div id="studentList" ui-grid-selection ui-grid-resize-columns ui-grid="studentList" class="grid"><span ng-show="studentList.data.length==0" class="grid-status">{{studentListStatus}}</span></div>
+          <div id="handle-student-area" ng-show="showHandleArea">
+            <div data-student-handle="studentData"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

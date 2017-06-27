@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" ng-app="martketManagement">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Quản lý học sinh</title>
+  <!-- STYLES -->
+  <!-- build:css lib/css/main.min.css -->
+  <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
+  <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
+  <link rel="stylesheet" type="text/css" href="components/angular-ui-grid/ui-grid.min.css">
+  <link rel="stylesheet" type="text/css" href="components/jquery-ui/themes/smoothness/jquery-ui.min.css">  
+  <link rel="stylesheet" type="text/css" href="components/jquery-ui/themes/smoothness/theme.css">  
+  <link rel="stylesheet" type="text/css" href="components/angularjs-slider/dist/rzslider.min.css"/>
+  <link rel="stylesheet" type="text/css" href="style/appstyle.css">
+
+  <!-- endbuild -->
+  <!-- SCRIPTS -->
+  <!-- build:js lib/js/main.min.js -->
+  <script type="text/javascript" src="components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="components/jquery-ui/jquery-ui.min.js"></script> 
+  <script type="text/javascript" src="components/jquery-ui/ui/i18n/datepicker-vi.js"></script> 
+  <script type="text/javascript" src="components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="components/angular-cookies/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="components/angular-ui-grid/ui-grid.min.js"></script>
+  <script type="text/javascript" src="components/angularjs-slider/dist/rzslider.min.js"></script> 
+  <!--<script type="text/javascript" src="components/angular-touch/angular-touch.min.js"></script> 
+  <script type="text/javascript" src="components/angular-animate/angular-animate.min.js"></script> -->
+    
+  <!-- endbuild -->
+  <!-- Custom Scripts -->
+  <script type="text/javascript" src="js/dashboard.min.js"></script>
+</head>
+
+<body ng-controller="MasterCtrl">
+  <div id="page-wrapper" ng-class="{'open': toggle}" class="open" ng-cloak>
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main">
+          <a ng-click="toggleSidebar()">
+            MENU
+            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+          </a>
+        </li>
+        <!--<li class="sidebar-title"><span><NAVIGATION></span></li>-->
+        <li class="sidebar-list">
+          <a href="#">Thống kê <span class="menu-icon fa fa-tachometer"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/studentlist">Học Sinh <span class="menu-icon fa fa-id-card"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/class">Lớp Học<span class="menu-icon fa fa-users"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/report">Báo cáo<span class="menu-icon fa fa-file-text-o"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/regulation">Quy định<span class="menu-icon fa fa-cogs"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/schoolyear">Năm học<span class="menu-icon fa fa-graduation-cap"></span></a>
+        </li>
+      </ul>
+      <!--<div class="sidebar-footer">
+        <div class="col-xs-4">
+          <a href="#" target="_blank">
+            DEMO
+          </a>
+        </div>
+        <div class="col-xs-4">
+          <a href="#" target="_blank">
+            DEMO
+          </a>
+        </div>
+        <div class="col-xs-4">
+          <a href="#">
+            DEMO
+          </a>
+        </div>
+      </div>-->
+    </div>
+    <!-- End Sidebar -->
+
+    <div id="content-wrapper">
+      <div class="page-content">
+
+        <!-- Header Bar -->
+        <div class="row header">
+          <div class="col-xs-12">
+            <div ng-controller="loginCtrl" class="user pull-right">
+              <label style="padding: 20px; margin: 0;">Xin chào {{masterUserName}},    <span style="color: blue; text-decoration: underline; cursor: pointer;" ng-click="logout()">Đăng xuất</span></label>
+            </div>
+            <!--<div class="user pull-right">
+              <div class="item dropdown" uib-dropdown>
+                <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                  <img src="img/avatar.jpg">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li class="dropdown-header">
+                    DEMO
+                  </li>
+                  <li class="divider"></li>
+                  <li class="link">
+                    <a href="#">
+                      Profile
+                    </a>
+                  </li>
+                  <li class="link">
+                    <a href="#">
+                      Menu Item
+                    </a>
+                  </li>
+                  <li class="link">
+                    <a href="#">
+                      Menu Item
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li class="link">
+                    <a href="#">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="item dropdown" uib-dropdown>
+                <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                  <i class="fa fa-bell-o"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li class="dropdown-header">
+                    Notifications
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="#">Server Down!</a>
+                  </li>
+                </ul>
+              </div>
+            </div>-->
+            <div class="meta">
+              <div class="page">
+                <label style="margin-top:2px;" class="col-lg-2 col-md-3 col-sm-4 col-xs-6">Năm học: {{masterRegulation.schoolYearName}}</label>
+                <!--<div class="col-xs-6 col-sm-4 col-md-2 col-lg-1" style="min-width: 100px;">
+                  <select class="form-control input-sm" ng-model="selectedSchoolYear" style="max-width: 100px;">
+                      <option ng-repeat="data in masterSchoolYear" value="{{data}}" ng-selected="selectedSchoolYear.schoolYearID == data.schoolYearID">{{data.schoolYearName}}</option>
+                  </select>
+                  </div>-->
+              </div>
+              <div class="breadcrumb-links">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Header Bar -->
+
+        <!-- Main Content -->
+        <div ui-view></div>
+
+      </div>
+      <!-- End Page Content -->
+    </div>
+    <!-- End Content Wrapper -->
+  </div>
+  <!-- End Page Wrapper -->
+  <div id="modal_area"></div>
+  <rd-loading/>
+</body>
+</html>

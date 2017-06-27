@@ -1,0 +1,63 @@
+<div class="row" ng-controller="ClassCtrl">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong><span class="fa fa-users"></span> Lớp học</strong>
+      </div>
+      <div class="panel-body notification-area">
+        <div class="container-fluid">
+          <search-student/>
+          <form role="form" name="class_management" id="class_management">
+            <div class="row form-horizontal">
+               <div class="col-md-3 col-sm-5">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Khối</label>
+                  <div class="col-xs-7">
+                    <select ng-disabled="!grades.length" ng-change="getClasses()" ng-model="grade" class="form-control input-sm">
+                        <option ng-selected="1" value="">Chọn khối</option>
+                        <option ng-repeat="grade in grades" value="{{grade.gradeID}}">{{grade.gradeName}}</option>                                        
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-5">
+                <div class="form-group">
+                  <label class="control-label col-xs-5 input-sm">Lớp</label>
+                  <div class="col-xs-7">
+                    <select ng-change="getStudentInClass()"  ng-model="class" class="form-control input-sm" ng-disabled="!grade">
+                        <option ng-selected="1" value="">Chọn lớp</option>
+                        <option ng-repeat="cls in classes" value="{{cls}}">{{cls.className}}</option>                                          
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-2">
+                <div class="form-group">
+                  <label class="contol-label col-xs-12 input-sm">Sĩ số: {{studentList.data.length}}</label>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <div class="row form-horizontal">
+            <div class="btn-group">
+              <button ng-disabled="!class" type="button" class="btn btn-primary btn-xs" ng-click="openStudentList()"><i class="fa fa-plus-circle"></i> Thêm Học Sinh</button>
+              <button ng-disabled="!selectedStudents" type="button" class="btn btn-primary btn-xs" ng-click="removeStudentFromClass()"><i class="fa fa-times"></i> Xoá Khỏi Lớp</button>
+              <button ng-disabled="!studentList.data.length" type="button" class="btn btn-primary btn-xs" ng-click="enterScore(1)"><i class="fa fa-file-text-o"></i> Nhập Điểm HK I</button>
+              <button ng-disabled="!studentList.data.length" type="button" class="btn btn-primary btn-xs" ng-click="enterScore(2)"><i class="fa fa-file-text-o"></i> Nhập Điểm HK II</button>
+              <button ng-disabled="!studentList.data.length" type="button" class="btn btn-primary btn-xs" ng-click="viewScore()"><i class="fa fa-file-text"></i> Nhận Điểm</button>
+              <button ng-disabled="!studentList.data.length" type="button" class="btn btn-primary btn-xs" ng-click="summarySemester(1)"><i class="fa fa-step-forward"></i> Tổng kết HK I</button>
+              <button ng-disabled="!studentList.data.length" type="button" class="btn btn-primary btn-xs" ng-click="summarySemester(2)"><i class="fa fa-fast-forward"></i> Tổng kết HK II</button>
+            </div>
+          </div>
+          <div ng-if="studentList.data.length" id="listStudent" ui-grid-selection ui-grid-resize-columns ui-grid="studentList" class="grid"><span ng-show="studentList.data.length==0" class="grid-status">Chưa có dữ liệu</span></div>
+          <div id="handle-score-area" ng-show="showHandleArea">
+            <div ng-show="handleEnterScore" data-enter-score="dataToEnter"></div>
+            <div ng-show="!handleEnterScore" data-view-score="dataToView"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
