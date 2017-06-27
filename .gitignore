@@ -56,3 +56,6 @@ Icon
 # log file 
 npm-debug.log
 /nbproject/private/
+
+#IDE files
+/nbproject
