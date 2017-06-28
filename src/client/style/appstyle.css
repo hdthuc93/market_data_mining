@@ -521,6 +521,13 @@ ul.sidebar li a {
     border: 1px solid #333;
     background-color:  #fff;
 }
+
+.khuvuc-container.ui-selected {
+    background-color:  #8fe485;
+}
+.khuvuc-container.ui-selecting {
+    background-color:  violet;
+}
 table.khuvuc{
     /*table-layout: fixed;*/
 }
@@ -528,115 +535,3 @@ td.ngan{
     width: 15px;
     height: 10px;
 }
-
-/*Click and Drag*/
-#grid {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-.ghost-select {
-  display: none;
-  z-index: 9000;
-  position: absolute !important;
-  cursor: default !important;
-}
-
-/*h3 {
-  position: absolute;
-  color: #ffffff;
-  border-bottom: 1px solid #fff;
-  left: 20px;
-}*/
-
-.elements {
-  position: absolute;
-}
-
-/*#square {
-  width: 80px;
-  height: 80px;
-  background-color: #fec72c;
-  left: 421px;
-  top: 122px;
-}
-
-#ball {
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-  background-color: #aaff8a;
-  left: 250px;
-  top: 222px;
-}
-#square_2 {
-  width: 130px;
-  height: 40px;
-  background-color: red;
-  left: 394px;
-    top: 332px;
-}
-
-#ball_2 {
-  width: 80px;
-  height: 80px;
-  border-radius: 10%;
-  background-color: violet;
-      left: 544px;
-    top: 222px;
-}
-
-#square_3 {
-  width: 230px;
-  height: 80px;
-  background-color: darkgoldenrod;
-  left: 494px;
-    top: 212px;
-}
-
-#ball_2 {
-  width: 120px;
-  height: 80px;
-  border-radius: 30%;
-  background-color: brown;
-      left: 244px;
-    top: 122px;
-}*/
-/*
-#score {
-  position: absolute;
-  top: 0px;
-  left: 200px;
-  color: #ffffff;
-}*/
-
-#big-ghost{
-  background-color:rgba(107, 80, 19, 0.3);
-  border:1px solid white;
-  position:absolute;
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
-            transition: .5s ;
-}
-
-/*.ghost-select > div {
-  position: absolute;
-  left: 0px !important;
-  top: 2px !important;
-}*/
-
-.ghost-active {
-  display: block !important;
-}
-
-.ghost-select > span {
-  background-color: rgba(193, 134, 0, 0.3);
-  border: 1px dotted #ffffff;
-  width: 100%;
-  height: 100%;
-  float: left;
-}
-/*Click and Drag - END*/
