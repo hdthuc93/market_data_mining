@@ -75,6 +75,11 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             cot: 1,
             kthuoc: 1,
             mausac: "#d3d3d3"
+        },{
+            dong: 3,
+            cot: 2,
+            kthuoc: 2,
+            mausac: "violet"
         }]
     }];
 
@@ -144,6 +149,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             contentHTML += '<div ' + _id + _class + _style + ' >' + quayke + '</div>';
         }
         mainArea.html(contentHTML);
+
         for (var i in $scope.KhuVuc) {
             for (var j in $scope.KhuVuc[i].items) {
                 var item = $scope.KhuVuc[i].items[j];
@@ -176,11 +182,25 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                             }
                         }
 
+                        //Detail (view 2)
                         for (var i in $scope.KhuVuc) {
                             if ($scope.KhuVuc[i].id == priorityEle.attr('id')) {
-                                var quayke = renderKe($scope.KhuVuc[i].slKe, $scope.KhuVuc[i].slNgan
+                                var quayke = renderKeDetail($scope.KhuVuc[i].slKe, $scope.KhuVuc[i].slNgan
                                     , $scope.KhuVuc[i].ktNgan, $scope.KhuVuc[i].slDong, $scope.KhuVuc[i].items);
                                 $("#detail_area").html(quayke);
+                                for (var j in $scope.KhuVuc[i].items) {
+                                    var item = $scope.KhuVuc[i].items[j];
+
+                                    var vt1 = $('#detail_area .ngan' + item.dong + '-' + item.cot);
+                                    vt1.css("background-color", item.mausac);
+                                    var _class = "hasItem " + ($scope.KhuVuc[i].items[j].kthuoc == 2)?" item-head":"";
+                                    vt1.addClass(_class);
+                                    if ($scope.KhuVuc[i].items[j].kthuoc == 2) {
+                                        var vt2 =  $('#detail_area .ngan' + item.dong + '-' + (item.cot + 1));
+                                        vt2.css("background-color", item.mausac);
+                                        vt2.addClass("hasItem item-tail");
+                                    }
+                                }
                                 break;
                             }
                         }
@@ -220,19 +240,43 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sd = 1;
         var slCot = slKe * slNgan * ktNgan;
-        var a = '<table border="1" class="khuvuc" width="' + slCot * 15 + '">';
+        var content = '<table border="1" class="khuvuc" width="' + slCot * 15 + '">';
         while (sd <= slDong) {
-            a = a + '<tr>';
+            content = content + '<tr>';
             var sc = 1;
             while (sc <= slCot) {
-                a = a + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
+                content = content + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
                 sc++;
             }
-            a = a + '</tr>';
+            content = content + '</tr>';
             sd++;
         }
-        a = a + '</table>';
-        return a;
+        content = content + '</table>';
+        return content;
+    }
+
+    function renderKeDetail(slKe, slNgan, ktNgan, slDong, kienHang) {
+        var sk = 1;
+        var content = "";
+        while (sk <= slKe) {
+            var sd = 1;
+            var slCot = slNgan * ktNgan;
+            content = content + '<table border="1" class="ke ke'+sk+' inline"+ width="' + slCot * 50 + '">';
+            while (sd <= slDong) {
+                content = content + '<tr>';
+                var sc = (sk-1)*slNgan*ktNgan + 1;
+                //var sc = 1;
+                while ( (sc - slCot*(sk-1)) <= slCot) {
+                    content = content + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
+                    sc++;
+                }
+                content = content + '</tr>';
+                sd++;
+            }
+            content = content + '</table>';
+            sk++;
+        }    
+        return content;
     }
 
     function getDeg(ele) {

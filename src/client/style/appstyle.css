@@ -477,7 +477,9 @@ ul.sidebar li a {
 
 
 
-
+table{
+    table-layout: fixed;
+}
 
 
 .tab-content {
@@ -528,10 +530,29 @@ ul.sidebar li a {
 .khuvuc-container.ui-selecting {
     background-color:  violet;
 }
-table.khuvuc{
-    /*table-layout: fixed;*/
-}
 td.ngan{
-    width: 15px;
     height: 10px;
+}
+table.ke td.ngan{
+     height: 50px;
+}
+table.ke{
+    margin: 10px ;
+    border: 1px solid #333;
+}
+table.inline{
+    display: inline-table;
+}
+
+.item-tail:after {
+    content: " ";
+    margin: 20px;
+    color: #f5f0ec;
+    background-color: #f5f0ec;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #4e2706;
+    position: absolute;
+    border-radius: 50%;
+    transform: translateY(-26px) translateX(-3px);
 }
