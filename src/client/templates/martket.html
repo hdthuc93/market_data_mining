@@ -10,22 +10,7 @@
                         <div class="row form-horizontal">
                             <uib-tabset active="indextab">
                                 <!-- select="alertMe()"-->
-                                <uib-tab index="0" heading="View 1">
-                                    <div class="row form-horizontal" style="height: 500px; overflow: auto;">
-                                        <!--<panzoomwidget panzoom-id="PanZoom" style="position:absolute;top:10px;left:10px;z-index:1"></panzoomwidget>
-                                        <panzoom id="PanZoom" config="panzoomConfig" model="panzoomModel" style="width:100%; height: 100%">  
-                                        </panzoom>-->
-                                        <div id="main_area" class="col-xs-12" style="padding: 0; height: 2000px; width: 2000px; background-color: lightgrey;">
-                                        </div>
-                                    </div>
-                                </uib-tab>
-                                <uib-tab index="1" heading="View 2">
-                                    <div class="row form-horizontal" style="height: 500px; overflow: auto;">
-                                        <div class="col-xs-3">123......</div>
-                                        <div id="detail_area" class="col-xs-9" style="padding: 0;overflow: auto;border: 1px solid gray; height: 98%;"></div>
-                                    </div>
-                                </uib-tab>
-                                <uib-tab index="2" heading="View 3">
+                                <uib-tab index="1" heading="Danh sách khu vực">
                                     <div class="row form-horizontal">
                                         <div class="col-xs-4">
                                             <div class="form-group">
@@ -63,6 +48,29 @@
                                         <div class="col-xs-8">
                                             <div ui-grid="KhuVucList" class="grid"></div>
                                         </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="2" heading="View 1">
+                                    <div class="row form-horizontal" style="height: 500px; overflow: auto;">
+                                        <!--<panzoomwidget panzoom-id="PanZoom" style="position:absolute;top:10px;left:10px;z-index:1"></panzoomwidget>
+                                        <panzoom id="PanZoom" config="panzoomConfig" model="panzoomModel" style="width:100%; height: 100%">  
+                                        </panzoom>-->
+                                        <div>
+                                            <input type="checkbox" id="active-zoom" />Thu phóng
+                                            <div id="zoom-control">
+                                                <input type="range" class="zoom-range" style="width: 100%; max-width: 400px;" />
+                                                <button class="reset-panzoom">Reset </button>
+                                            </div>
+                                        </div>
+                                        <div style="height: 500px;">
+                                            <div id="main_area" class="col-xs-12" style="padding: 0; height: 2000px; width: 2000px; background-color: lightgrey;"></div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                                <uib-tab index="3" heading="View 2">
+                                    <div class="row form-horizontal" style="height: 500px; overflow: auto;">
+                                        <div class="col-xs-3">123......</div>
+                                        <div id="detail_area" class="col-xs-9" style="padding: 0;overflow: auto;border: 1px solid gray; height: 98%;"></div>
                                     </div>
                                 </uib-tab>
                             </uib-tabset>

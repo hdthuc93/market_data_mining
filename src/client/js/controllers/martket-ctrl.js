@@ -75,7 +75,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             cot: 1,
             kthuoc: 1,
             mausac: "#d3d3d3"
-        },{
+        }, {
             dong: 3,
             cot: 2,
             kthuoc: 2,
@@ -166,7 +166,27 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         }
 
-        $("#main_area").selectable(
+        //$("#main_area").panzoom();
+        var ele = $("#main_area");
+        ele.panzoom("destroy");
+        $("#zoom-control").hide();
+        var panZoom = null;
+        $('#active-zoom').change(function () {
+            if ($(this).is(":checked")) {
+                $("#zoom-control").show();
+                panZoom = ele.panzoom({
+                    minScale: 0.5,
+                    maxScale: 2,
+                    $zoomRange: $("input[type='range'].zoom-range"),
+                    $reset: $("button.reset-panzoom")
+                });
+            } else {                
+                $("#zoom-control").hide();
+                ele.panzoom("reset").panzoom("destroy");
+            }
+        });
+
+        ele.selectable(
             {
                 filter: ".khuvuc-container",
                 stop: function (event, ui) {
@@ -193,10 +213,10 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
                                     var vt1 = $('#detail_area .ngan' + item.dong + '-' + item.cot);
                                     vt1.css("background-color", item.mausac);
-                                    var _class = "hasItem " + ($scope.KhuVuc[i].items[j].kthuoc == 2)?" item-head":"";
+                                    var _class = "hasItem " + ($scope.KhuVuc[i].items[j].kthuoc == 2) ? " item-head" : "";
                                     vt1.addClass(_class);
                                     if ($scope.KhuVuc[i].items[j].kthuoc == 2) {
-                                        var vt2 =  $('#detail_area .ngan' + item.dong + '-' + (item.cot + 1));
+                                        var vt2 = $('#detail_area .ngan' + item.dong + '-' + (item.cot + 1));
                                         vt2.css("background-color", item.mausac);
                                         vt2.addClass("hasItem item-tail");
                                     }
@@ -234,13 +254,13 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
     setTimeout(function () {
         $scope.build();
-        $scope.indextab = 2; 
+        $scope.indextab = 2;
     }, 1000)
 
     function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sd = 1;
         var slCot = slKe * slNgan * ktNgan;
-        var content = '<table border="1" class="khuvuc" width="' + slCot * 15 + '">';
+        var content = '<table border="1" class="khuvuc" width="' + slCot * 10 + '">';
         while (sd <= slDong) {
             content = content + '<tr>';
             var sc = 1;
@@ -261,12 +281,12 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         while (sk <= slKe) {
             var sd = 1;
             var slCot = slNgan * ktNgan;
-            content = content + '<table border="1" class="ke ke'+sk+' inline"+ width="' + slCot * 50 + '">';
+            content = content + '<table border="1" class="ke ke' + sk + ' inline"+ width="' + slCot * 50 + '">';
             while (sd <= slDong) {
                 content = content + '<tr>';
-                var sc = (sk-1)*slNgan*ktNgan + 1;
+                var sc = (sk - 1) * slNgan * ktNgan + 1;
                 //var sc = 1;
-                while ( (sc - slCot*(sk-1)) <= slCot) {
+                while ((sc - slCot * (sk - 1)) <= slCot) {
                     content = content + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
                     sc++;
                 }
@@ -275,7 +295,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
             content = content + '</table>';
             sk++;
-        }    
+        }
         return content;
     }
 

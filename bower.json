@@ -25,7 +25,7 @@
     "angular-ui-grid": "^4.0.4",
     "jquery-ui": "^1.12.1",
     "angularjs-slider": "^6.1.2",
-    "angular-pan-zoom": "^1.0.18"
+    "jquery.panzoom": "^3.2.2"
   },
   "repository": {
     "type": "git",
