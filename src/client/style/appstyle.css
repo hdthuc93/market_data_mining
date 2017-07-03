@@ -526,7 +526,7 @@ table.inline{
     display: inline-table;
 }
 
-.item-tail:after {
+.item-tail:not(.item-head):after {
     content: " ";
     margin: 20px;
     color: #f5f0ec;
@@ -537,4 +537,12 @@ table.inline{
     position: absolute;
     border-radius: 50%;
     transform: translateY(-26px) translateX(-3px);
+}
+
+
+
+#detail_area table.ke td.ngan.ui-droppable-hover{
+    background-color: lightgray;
+    border-color: gray;
+    opacity: 0.7;
 }

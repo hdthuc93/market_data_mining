@@ -25,25 +25,33 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         y: 10, //top
         rotate: 0,
         items: [{
-            dong: 1,
-            cot: 1,
-            kthuoc: 2,
-            mausac: "red"
+            id:"kidtoy",
+            name: "do choi KID",
+            row: 1,
+            col: 1,
+            size: 2,
+            color: "red"
         }, {
-            dong: 1,
-            cot: 3,
-            kthuoc: 2,
-            mausac: "orange"
+            id:"dochoi0",
+            name: "do choi 0",
+            row: 1,
+            col: 3,
+            size: 2,
+            color: "orange"
         }, {
-            dong: 2,
-            cot: 1,
-            kthuoc: 1,
-            mausac: "green"
+            id:"dochoi1",
+            name: "do choi 1",
+            row: 2,
+            col: 1,
+            size: 1,
+            color: "green"
         }, {
-            dong: 5,
-            cot: 6,
-            kthuoc: 2,
-            mausac: "#333"
+            id:"dochoi2",
+            name: "do choi 2",
+            row: 5,
+            col: 6,
+            size: 2,
+            color: "#333"
         }]
     }, {
         name: "Khu Vuc 2",
@@ -56,30 +64,40 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         y: 100, //top
         rotate: -45,
         items: [{
-            dong: 4,
-            cot: 5,
-            kthuoc: 2,
-            mausac: "brown"
+            id:"cachua",
+            name:"ca chua",
+            row: 4,
+            col: 5,
+            size: 2,
+            color: "brown"
         }, {
-            dong: 1,
-            cot: 3,
-            kthuoc: 2,
-            mausac: "orange"
+            id:"dochoi",
+            name: "do choi",
+            row: 1,
+            col: 3,
+            size: 2,
+            color: "orange"
         }, {
-            dong: 2,
-            cot: 1,
-            kthuoc: 1,
-            mausac: "green"
+            id:"thenho",
+            name: "the nho",
+            row: 2,
+            col: 1,
+            size: 1,
+            color: "green"
         }, {
-            dong: 5,
-            cot: 1,
-            kthuoc: 1,
-            mausac: "#d3d3d3"
+            id:"cd",
+            name: "dia CD",
+            row: 5,
+            col: 1,
+            size: 1,
+            color: "#d3d3d3"
         }, {
-            dong: 3,
-            cot: 2,
-            kthuoc: 2,
-            mausac: "violet"
+            id:"usb",
+            name: "USB",
+            row: 3,
+            col: 2,
+            size: 2,
+            color: "violet"
         }]
     }];
 
@@ -154,13 +172,13 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             for (var j in $scope.KhuVuc[i].items) {
                 var item = $scope.KhuVuc[i].items[j];
 
-                var vt1 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.dong + '-' + item.cot);
-                vt1.css("background-color", item.mausac);
-                vt1.addClass("hasItem");
-                if ($scope.KhuVuc[i].items[j].kthuoc == 2) {
-                    var vt2 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.dong + '-' + (item.cot + 1));
-                    vt2.css("background-color", item.mausac);
-                    vt2.addClass("hasItem");
+                var vt1 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.row + '-' + item.col);
+                vt1.css("background-color", item.color);
+                vt1.addClass("has-item");
+                if ($scope.KhuVuc[i].items[j].size == 2) {
+                    var vt2 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.row + '-' + (item.col + 1));
+                    vt2.css("background-color", item.color);
+                    vt2.addClass("has-item");
                 }
 
             }
@@ -211,15 +229,24 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                 for (var j in $scope.KhuVuc[i].items) {
                                     var item = $scope.KhuVuc[i].items[j];
 
-                                    var vt1 = $('#detail_area .ngan' + item.dong + '-' + item.cot);
-                                    vt1.css("background-color", item.mausac);
-                                    var _class = "hasItem " + ($scope.KhuVuc[i].items[j].kthuoc == 2) ? " item-head" : "";
-                                    vt1.addClass(_class);
-                                    if ($scope.KhuVuc[i].items[j].kthuoc == 2) {
-                                        var vt2 = $('#detail_area .ngan' + item.dong + '-' + (item.cot + 1));
-                                        vt2.css("background-color", item.mausac);
-                                        vt2.addClass("hasItem item-tail");
-                                    }
+                                    var ele = $('#detail_area .ngan' + item.row + '-' + item.col);
+                                    //fillItem(ele,id,name,row,col,size,color);
+                                    fillItem(ele,item.id,item.name,item.row,item.col,item.size,item.color);
+                                    // vt1.css("background-color", item.color)
+                                    // .attr("itemcolor", item.color)
+                                    // .attr("itemid", item.id)
+                                    // .attr("itemname", item.name)
+                                    // .attr("itemrow", item.row)
+                                    // .attr("itemcol", item.col)
+                                    // .attr("itemsize", item.size);
+
+                                    // var _class = (item.size == 2) ? "has-item item-head" : "has-item item-head item-tail";
+                                    // vt1.addClass(_class);
+                                    // if (item.size == 2) {
+                                    //     var vt2 = $('#detail_area .ngan' + item.row + '-' + (item.col + 1));
+                                    //     vt2.css("background-color", item.color);
+                                    //     vt2.addClass("has-item item-tail");
+                                    // }
                                 }
                                 break;
                             }
@@ -317,5 +344,74 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
         return (angle < 0) ? angle + 360 : angle;
     }
+
+    $scope.setupView2 = function(){
+        console.log(111111)
+        $("#sortable").sortable({
+            //cancel: ".fixed"
+        });
+
+        function resetEvents(){
+            var dragEleClass = null;
+
+            $( "#detail_area table.ke td.ngan").not( ".has-item" ).droppable({
+                drop: function( event, ui ) {
+                    if(dragEleClass!=null){// truong hop change vi tri cac item
+                        //get attrs
+                        var item = $(dragEleClass);
+                        emptyItem(item);//xoa style cua item cu~
+                        //fillItem(ele,id,name,row,col,size,color)
+                        fillItem(
+                            $(this),//ele
+                           item.attr("itemid"),
+                           item.attr("itemname"),
+                           item.attr("itemrow"),
+                           item.attr("itemcol"),
+                           item.attr("itemsize"),
+                           item.attr("itemcolor")
+                        )
+                    }
+                    // $( this )
+                    // .addClass( "ui-state-highlight" );
+                    resetEvents();
+                }
+            });
+
+            $( "#detail_area table.ke td.ngan.has-item.item-head" ).draggable({
+                drag: function(event, ui){
+                    dragEleClass = "#detail_area td.ngan"+$(this).attr("itemrow")+"-"+$(this).attr("itemcol");
+                },
+                stop: function(event, ui) {
+                    resetEvents();
+                }
+            });
+        }
+        resetEvents();
+
+    }
+
+    function fillItem(ele,id,name,row,col,size,color){
+            var $ele = $(ele);
+            $ele.css("background-color", color)
+                .attr("itemcolor", color)
+                .attr("itemid", id)
+                .attr("itemname", name)
+                .attr("itemrow", row)
+                .attr("itemcol", col)
+                .attr("itemsize", size);
+            var _class = (size == 2||size == "2") ? "has-item item-head" : "has-item item-head item-tail";
+            $ele.addClass(_class);
+            if (size == 2||size == "2") {
+                var $ele2 = $ele.next("td")
+                $ele2.css("background-color", color).addClass("has-item item-tail");
+            }
+        }
+
+        function emptyItem(ele){
+            console.log(ele);
+           ele.removeAttr("itemid itemname itemrow itemcol itemsize itemcolor")
+        }
+
+    
 
 }
