@@ -528,7 +528,6 @@ table.inline{
 
 .item-tail:not(.item-head):after {
     content: " ";
-    margin: 20px;
     color: #f5f0ec;
     background-color: #f5f0ec;
     width: 15px;
@@ -536,7 +535,7 @@ table.inline{
     border: 1px solid #4e2706;
     position: absolute;
     border-radius: 50%;
-    transform: translateY(-26px) translateX(-3px);
+    transform: translateY(18px) translateX(18px);
 }
 
 
