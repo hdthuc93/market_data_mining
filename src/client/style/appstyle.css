@@ -538,7 +538,9 @@ table.inline{
     transform: translateY(18px) translateX(18px);
 }
 
-
+detail_area{
+    margin-bottom: 0;
+}
 
 #detail_area table.ke td.ngan.ui-droppable-hover{
     background-color: lightgray;
