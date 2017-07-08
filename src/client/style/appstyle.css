@@ -524,6 +524,7 @@ table.ke{
 
 table.inline{
     display: inline-table;
+    vertical-align: top;
 }
 
 .item-tail:not(.item-head):after {

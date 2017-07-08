@@ -305,7 +305,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 content = content + '</tr>';
                 sd++;
             }
-            content = content + '</table>';
+            content = content + '</table>     ';
             sk++;
         }
         return content;
