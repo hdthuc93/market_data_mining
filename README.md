@@ -1,5 +1,6 @@
 ## Usage
 ### Requirements
+* [Git](http://git-scm.com/) 
 * [NodeJS](http://nodejs.org/) (with [NPM](https://www.npmjs.org/))
 * [Bower](http://bower.io)
 * [Gulp](http://gulpjs.com)
