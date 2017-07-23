@@ -527,6 +527,10 @@ table.inline{
     vertical-align: top;
 }
 
+.item-head{
+    cursor: move;
+}
+
 .item-tail:not(.item-head):after {
     content: " ";
     color: #f5f0ec;

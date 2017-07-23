@@ -148,6 +148,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     }
 
+    //Buil View 1
     $scope.build = function () {
         if (!$scope.KhuVuc.length) {
             return;
@@ -269,6 +270,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         $scope.indextab = 2;
     }, 1000)
 
+    //Render View1
     function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sd = 1;
         var slCot = slKe * slNgan * ktNgan;
@@ -287,6 +289,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         return content;
     }
 
+    //Render View2
     function renderKeDetail(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sk = 1;
         var content = "";
@@ -311,6 +314,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         return content;
     }
 
+    //Tinh toan xoay
     function getDeg(ele) {
         var obj = $(ele);
         var angle = 0;
@@ -330,17 +334,40 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         return (angle < 0) ? angle + 360 : angle;
     }
 
+    //Setup View2
     $scope.setupView2 = function () {
-        $("#sortable").sortable({
+        /*$("#sortable").sortable({
             //cancel: ".fixed"
-        });
+        });*/
 
         var dragEleClass = null;
 
-        $("#detail_area table.ke td.ngan:not(:has(>div))").droppable({
+        $("#detail_area table.ke td.ngan").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
                 var item = $(ui.draggable)
+                //Kiểm tra cho phep drop
+                if(parseInt(item.attr('itemsize'))==2){
+                    var tdTail = '#detail_area .ngan.ngan'+$(this).attr('itemrow')+'-'+(parseInt($(this).attr('itemcol'))+1);
+                    //TH1: item size=2 drop vào cuối dãy kệ
+                    if(!$(tdTail).length){
+                        console.log(111)
+                        return;
+                    }
+                    //TH2: item size=2 drop vào bên trái item khác && keo lui ben trai
+                    if($(tdTail).find("div").length){
+                        var dk1 = item.hasClass("item-head");
+                        var dk2 = $(tdTail).attr("itemcol")!==item.parent().attr("itemcol");
+                        if(dk1&&dk2){
+                            console.log(22222);
+                            return;
+                        }
+                    }
+                }
+                //Nếu item này kéo nằm lên item khác
+                if($(this).find("div").length){
+                    return;
+                }
                 $(this).append(item.css("position", "inherit"));
             }
         });
@@ -352,6 +379,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
             },
             stop: function (event, ui) {
+                /*Thay doi bien KhuVuc và Build lại*/
                 var itemList = $("#detail_area td div.item-head");
                 var items = [];
                 for (var i = 0; i < itemList.length; i++) {
@@ -365,7 +393,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                     }
                     items.push(_it);
                 }
-                //TEST*/
+                
                 for (var i in $scope.KhuVuc) {
                     if ($scope.KhuVuc[i].id == $("#detail_area").attr("kvid")) {
                         var khuvuc = $scope.KhuVuc[i];
@@ -382,11 +410,13 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                         break;
                     }
                 }
+                $scope.setupView2();
             }
         });
 
     }
 
+    //Fill Item
     function fillItem(id, name, row, col, size, color) {
         var $ele = $("#detail_area td[itemrow='" + row + "'][itemcol='" + col + "']");
         var item = document.createElement("DIV");
@@ -406,7 +436,4 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             $ele2.append(item);
         }
     }
-
-
-
 }
