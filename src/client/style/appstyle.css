@@ -552,3 +552,44 @@ detail_area{
     border-color: gray;
     opacity: 0.7;
 }
+
+#detail_area div#control{
+    padding : 10px;
+}
+#detail_area div#control{
+    /* background-color: #808080; */
+}
+#detail_area div#control>span{
+    padding: 10px 12px;
+    margin-right: 20px;
+    font-size: 20px;
+    border-radius: 6px;
+    border: 1px solid #4e2706;
+}
+
+#detail_area #remove{
+    background-color: red;
+    color: #fff;
+}
+#detail_area #addtocart{
+    background-color: green;
+    color: #fff;
+}
+
+#detail_area #remove.ui-droppable-hover{
+    background-color: rgba(232, 18, 18, 0.61);
+}
+#detail_area #addtocart.ui-droppable-hover{
+    background-color: rgba(0, 128, 0, 0.68);
+}
+.item-head.ui-draggable-dragging{
+    opacity: .4;
+    border-radius: 50%;
+}
+
+#cart-title{
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background-color: rgba(128, 128, 128, 0.38);
+    font-size: 150%;
+}

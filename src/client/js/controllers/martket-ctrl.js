@@ -8,12 +8,10 @@ angular.module('RDash')
 
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
     $scope.selectedTab = 0;
-    $scope.panzoomConfig = {
-        zoomLevels: 5,
-        neutralZoomLevel: 1,
-        scalePerZoomLevel: 1.5
-    };
-    $scope.panzoomModel = {};
+
+    $scope.cart = [];
+    $scope.orderPrice = 0;
+    
     $scope.KhuVuc = [{
         name: "Khu Vuc 1",
         id: "kv1",
@@ -21,8 +19,8 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         slNgan: 3, //co bao nhieu ngan / 1 ke
         ktNgan: 2, // kich thuoc ngan 2 or 1
         slDong: 5, //co bao nhieu Hang`
-        x: 10, //left
-        y: 10, //top
+        x: "10", //left
+        y: "10", //top
         rotate: 0,
         items: [{
             id: "kidtoy",
@@ -30,28 +28,32 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             row: 1,
             col: 1,
             size: 2,
-            color: "red"
+            color: "red",
+            price: 19500
         }, {
             id: "dochoi0",
             name: "do choi 0",
             row: 1,
             col: 3,
             size: 2,
-            color: "orange"
+            color: "orange",
+            price: 27500
         }, {
             id: "dochoi1",
             name: "do choi 1",
             row: 2,
             col: 1,
             size: 1,
-            color: "green"
+            color: "green",
+            price: 75500
         }, {
             id: "dochoi2",
             name: "do choi 2",
             row: 5,
             col: 6,
             size: 2,
-            color: "#333"
+            color: "#333",
+            price: 101000
         }]
     }, {
         name: "Khu Vuc 2",
@@ -60,8 +62,8 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         slNgan: 2, //co bao nhieu ngan / 1 ke
         ktNgan: 1, // kich thuoc ngan 2 or 1
         slDong: 6, //co bao nhieu Hang`
-        x: 10, //left
-        y: 100, //top
+        x: "10", //left
+        y: "100", //top
         rotate: -45,
         items: [{
             id: "cachua",
@@ -69,35 +71,40 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             row: 4,
             col: 5,
             size: 2,
-            color: "brown"
+            color: "brown",
+            price: 2000
         }, {
             id: "dochoi",
             name: "do choi",
             row: 1,
             col: 3,
             size: 2,
-            color: "orange"
+            color: "orange",
+            price: 80000
         }, {
             id: "thenho",
             name: "the nho",
             row: 2,
             col: 1,
             size: 1,
-            color: "green"
+            color: "green",
+            price: 15500
         }, {
             id: "cd",
             name: "dia CD",
             row: 5,
             col: 1,
             size: 1,
-            color: "#d3d3d3"
+            color: "#d3d3d3",
+            price: 21000
         }, {
             id: "usb",
             name: "USB",
             row: 3,
             col: 2,
             size: 2,
-            color: "violet"
+            color: "violet",
+            price: 49000
         }]
     }];
 
@@ -121,7 +128,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
 
     $scope.themKhuVuc = function () {
-        if ($scope.data) {
+         /*if ($scope.data) {
             var dk = {
                 name: "Khu Vuc " + Math.floor((Math.random() * 9999) + (Math.random() * 9999)),
                 id: "kv" + Math.floor((Math.random() * 9999) + (Math.random() * 9999)),
@@ -136,7 +143,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
             $scope.KhuVuc.push(dk);
             $scope.KhuVucList.data = $scope.KhuVuc;
-        }
+        }*/
     }
 
     $scope.save = function () {
@@ -148,8 +155,8 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     }
 
-    //Buil View 1
-    $scope.build = function () {
+    //Render View 1
+    $scope.renderView1 = function () {
         if (!$scope.KhuVuc.length) {
             return;
         }
@@ -157,35 +164,36 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         mainArea.empty();
         var contentHTML = "";
         for (var i in $scope.KhuVuc) {
-            var posX = ($scope.KhuVuc[i].x) ? 'left:' + $scope.KhuVuc[i].x + 'px;' : '';
-            var posY = ($scope.KhuVuc[i].y) ? 'top:' + $scope.KhuVuc[i].y + 'px;' : '';
-            var rotate = ($scope.KhuVuc[i].rotate) ? 'transform : rotate(' + $scope.KhuVuc[i].rotate + 'deg)' : '';
+            var kv = $scope.KhuVuc[i];
+            var posX = (kv.x) ? 'left:' + kv.x + 'px;' : '';
+            var posY = (kv.y) ? 'top:' + kv.y + 'px;' : '';
+            var rotate = (kv.rotate) ? 'transform : rotate(' + kv.rotate + 'deg)' : '';
             var _style = ' style="position:absolute;' + posX + posY + rotate + '" ';
-            var _id = ' id=' + $scope.KhuVuc[i].id + ' ';
+            var _id = ' id=' + kv.id + ' ';
             var _class = ' class="khuvuc-container" ';
-            var quayke = renderKe($scope.KhuVuc[i].slKe, $scope.KhuVuc[i].slNgan
-                , $scope.KhuVuc[i].ktNgan, $scope.KhuVuc[i].slDong, $scope.KhuVuc[i].items);
+            var quayke = renderKe(kv.slKe, kv.slNgan
+                , kv.ktNgan, kv.slDong, kv.items);
             contentHTML += '<div ' + _id + _class + _style + ' >' + quayke + '</div>';
         }
         mainArea.html(contentHTML);
 
         for (var i in $scope.KhuVuc) {
             for (var j in $scope.KhuVuc[i].items) {
-                var item = $scope.KhuVuc[i].items[j];
+                var kv = $scope.KhuVuc[i];
+                var item = kv.items[j];
 
-                var vt1 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.row + '-' + item.col);
+                var vt1 = $('#' + kv.id + ' .ngan' + item.row + '-' + item.col);
                 vt1.css("background-color", item.color);
                 vt1.addClass("has-item");
-                if ($scope.KhuVuc[i].items[j].size == 2) {
-                    var vt2 = $('#' + $scope.KhuVuc[i].id + ' .ngan' + item.row + '-' + (item.col + 1));
+                if (item.size == 2) {
+                    var vt2 = $('#' + kv.id + ' .ngan' + item.row + '-' + (parseInt(item.col) + 1));
                     vt2.css("background-color", item.color);
                     vt2.addClass("has-item");
                 }
-
             }
         }
 
-        //$("#main_area").panzoom();
+        $("#main_area").panzoom();
         var ele = $("#main_area");
         ele.panzoom("destroy");
         $("#zoom-control").hide();
@@ -225,15 +233,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                         for (var i in $scope.KhuVuc) {
                             if ($scope.KhuVuc[i].id == priorityEle.attr('id')) {
                                 var khuvuc = $scope.KhuVuc[i];
-                                var quayke = renderKeDetail(khuvuc.slKe, khuvuc.slNgan
-                                    , khuvuc.ktNgan, khuvuc.slDong, khuvuc.items);
-                                $("#detail_area").attr("kvid", khuvuc.id).html(quayke);
-                                for (var j in khuvuc.items) {
-                                    var item = khuvuc.items[j];
-
-                                    var ele = $('#detail_area .ngan' + item.row + '-' + item.col);
-                                    fillItem(item.id, item.name, item.row, item.col, item.size, item.color);
-                                }
+                                renderView2(khuvuc);
                                 break;
                             }
                         }
@@ -244,55 +244,28 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
         $(".khuvuc-container").draggable({
             create: function (event, ui) {
-                for (var i = 0; i < $scope.KhuVuc.length; i++) {
-                    if ($scope.KhuVuc[i].id === $(this).attr('id')) {
-                        $scope.KhuVuc[i].x = $(this).position().left;
-                        $scope.KhuVuc[i].y = $(this).position().top;
-                        $scope.KhuVuc[i].rotate = parseInt(getDeg(this));
-                        break;
-                    }
-                }
             },
             stop: function (event, ui) {
                 for (var i = 0; i < $scope.KhuVuc.length; i++) {
-                    if ($scope.KhuVuc[i].id === $(this).attr('id')) {
-                        $scope.KhuVuc[i].x = $(this).position().left;
-                        $scope.KhuVuc[i].y = $(this).position().top;
-                        $scope.KhuVuc[i].rotate = parseInt(getDeg(this));
+                    var kv = $scope.KhuVuc[i];
+                    if (kv.id === $(this).attr('id')) {
+                        kv.x = $(this).position().left;
+                        kv.y = $(this).position().top;
+                        console.log(919191,$(this).position());
+                        kv.rotate = parseInt(getDeg(this));
                         break;
                     }
                 }
             }
         });
     }
-    setTimeout(function () {
-        $scope.build();
-        $scope.indextab = 2;
-    }, 1000)
+    //Render View 2
+    function renderView2(khuvuc){
+        var slKe = khuvuc.slKe, slNgan= khuvuc.slNgan, 
+        ktNgan= khuvuc.ktNgan, slDong= khuvuc.slDong, kienHang= khuvuc.items;
 
-    //Render View1
-    function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
-        var sd = 1;
-        var slCot = slKe * slNgan * ktNgan;
-        var content = '<table border="1" class="khuvuc" width="' + slCot * 10 + '">';
-        while (sd <= slDong) {
-            content = content + '<tr>';
-            var sc = 1;
-            while (sc <= slCot) {
-                content = content + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
-                sc++;
-            }
-            content = content + '</tr>';
-            sd++;
-        }
-        content = content + '</table>';
-        return content;
-    }
-
-    //Render View2
-    function renderKeDetail(slKe, slNgan, ktNgan, slDong, kienHang) {
         var sk = 1;
-        var content = "";
+        var content = '<div id="control" class="control col-xs-12"><span id="remove" class="fa fa-trash"></span><span id="addtocart" class="fa fa-cart-plus"></span></div>';
         while (sk <= slKe) {
             var sd = 1;
             var slCot = slNgan * ktNgan;
@@ -311,6 +284,36 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             content = content + '</table>     ';
             sk++;
         }
+
+        $("#detail_area").attr("kvid", khuvuc.id).html(content);
+        for (var j in khuvuc.items) {
+            var item = khuvuc.items[j];
+            fillItem(item.id, item.name, item.row, item.col, item.size, item.color);
+        }
+
+        setupView2();
+    }
+    setTimeout(function () {
+        $scope.renderView1();
+        $scope.indextab = 2;
+    }, 1000)
+
+    //Render Ke trong View 1
+    function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
+        var sd = 1;
+        var slCot = slKe * slNgan * ktNgan;
+        var content = '<table border="1" class="khuvuc" width="' + slCot * 10 + '">';
+        while (sd <= slDong) {
+            content = content + '<tr>';
+            var sc = 1;
+            while (sc <= slCot) {
+                content = content + '<td class="ngan ngan' + sd + '-' + sc + '"></td>';
+                sc++;
+            }
+            content = content + '</tr>';
+            sd++;
+        }
+        content = content + '</table>';
         return content;
     }
 
@@ -335,82 +338,148 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
 
     //Setup View2
-    $scope.setupView2 = function () {
+    function setupView2() {
         /*$("#sortable").sortable({
             //cancel: ".fixed"
         });*/
 
-        var dragEleClass = null;
+        $("#detail_area table.ke td.ngan div.item-head").draggable({
+            snap: '#detail_area td.ngan, .remove',
+            revert: true,
+            drag: function (event, ui) {
+            },
+            start: function (event, ui) {
+            },
+            stop: function (event, ui) { 
+            }
+        });
+        
 
         $("#detail_area table.ke td.ngan").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
-                var item = $(ui.draggable)
-                //Kiểm tra cho phep drop
+                var isChange = true;
+                var item = $(ui.draggable);
+                //Kiểm tra cho phép drop
                 if(parseInt(item.attr('itemsize'))==2){
                     var tdTail = '#detail_area .ngan.ngan'+$(this).attr('itemrow')+'-'+(parseInt($(this).attr('itemcol'))+1);
                     //TH1: item size=2 drop vào cuối dãy kệ
                     if(!$(tdTail).length){
-                        console.log(111)
-                        return;
+                        console.log("TH1")
+                        isChange = false;
                     }
                     //TH2: item size=2 drop vào bên trái item khác && keo lui ben trai
                     if($(tdTail).find("div").length){
                         var dk1 = item.hasClass("item-head");
                         var dk2 = $(tdTail).attr("itemcol")!==item.parent().attr("itemcol");
                         if(dk1&&dk2){
-                            console.log(22222);
-                            return;
+                            console.log("TH2")
+                            isChange = false;
                         }
                     }
                 }
                 //Nếu item này kéo nằm lên item khác
                 if($(this).find("div").length){
-                    return;
+                    console.log("TH3");          
+                    isChange = false;
                 }
-                $(this).append(item.css("position", "inherit"));
+
+                var items = [];
+                if(isChange){
+                    $(this).append(item.css("position", "inherit"));
+
+                    /*Thay doi bien KhuVuc và Build lại*/
+                    var itemList = $("#detail_area td div.item-head");
+                    for (var i = 0; i < itemList.length; i++) {
+                        var _it = {
+                            id: $(itemList[i]).attr('itemid'),
+                            name: $(itemList[i]).attr('itemname'),
+                            row: $(itemList[i]).parent().attr('itemrow'),
+                            col: $(itemList[i]).parent().attr('itemcol'),
+                            size: $(itemList[i]).attr('itemsize'),
+                            color: $(itemList[i]).attr('itemcolor')
+                        }
+                        items.push(_it);
+                    }
+                }
+
+                for (var i in $scope.KhuVuc) {
+                    if ($scope.KhuVuc[i].id == $("#detail_area").attr("kvid")) {
+                        if(items.length){
+                            $scope.KhuVuc[i].items =  items;
+                        }
+                        var khuvuc = $scope.KhuVuc[i];
+                        renderView2(khuvuc);
+                        break;
+                    }
+                }
+                if(isChange){
+                    //socket
+                    console.log("ban socket co su thay doi");
+                    $scope.renderView1();
+                }
             }
         });
 
-        $("#detail_area table.ke td.ngan div.item-head").draggable({
-            snap: '#detail_area td.ngan:not(:has(>div))',
-            cursor: "move",
-            drag: function (event, ui) {
-
-            },
-            stop: function (event, ui) {
-                /*Thay doi bien KhuVuc và Build lại*/
-                var itemList = $("#detail_area td div.item-head");
-                var items = [];
-                for (var i = 0; i < itemList.length; i++) {
-                    var _it = {
-                        id: $(itemList[i]).attr('itemid'),
-                        name: $(itemList[i]).attr('itemname'),
-                        row: $(itemList[i]).parent().attr('itemrow'),
-                        col: $(itemList[i]).parent().attr('itemcol'),
-                        size: $(itemList[i]).attr('itemsize'),
-                        color: $(itemList[i]).attr('itemcolor')
+        $("#detail_area #control #remove").droppable({
+            accept: "td div.item-head",
+            drop: function (event, ui) {
+                console.log("XOA NE");
+                var item = $(ui.draggable);
+                helper.popup.confirm({
+                    title: "Xoá kiện hàng",
+                    message: "Bạn có muốn xoá ["+item.attr("itemname")+"]?",
+                    ok: function () {
+                        for (var i in $scope.KhuVuc) {
+                            var kv = $scope.KhuVuc[i];
+                            if (kv.id == $("#detail_area").attr("kvid")) {
+                                for(var j in kv.items){
+                                    if(item.attr("itemid")==kv.items[j].id){
+                                        var _it = kv.items[j];
+                                        $scope.KhuVuc[i].items.splice(j,1);
+                                        renderView2(kv);
+                                        $scope.renderView1();
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    },
+                    cancel: function () {
+                        return;
                     }
-                    items.push(_it);
-                }
+                })
                 
-                for (var i in $scope.KhuVuc) {
-                    if ($scope.KhuVuc[i].id == $("#detail_area").attr("kvid")) {
-                        var khuvuc = $scope.KhuVuc[i];
-                        khuvuc.items = items;
-                        var quayke = renderKeDetail(khuvuc.slKe, khuvuc.slNgan
-                            , khuvuc.ktNgan, khuvuc.slDong, khuvuc.items);
-                        $("#detail_area").attr("kvid", khuvuc.id).html(quayke);
-                        for (var j in khuvuc.items) {
-                            var item = khuvuc.items[j];
+            }
+        });
 
-                            var ele = $('#detail_area .ngan' + item.row + '-' + item.col);
-                            fillItem(item.id, item.name, item.row, item.col, item.size, item.color);
+        $("#detail_area #control #addtocart").droppable({
+            accept: "td div.item-head",
+            drop: function (event, ui) { 
+                console.log("ADD CART NE");
+                var item = $(ui.draggable);
+                for (var i in $scope.KhuVuc) {
+                    var kv = $scope.KhuVuc[i];
+                    if (kv.id == $("#detail_area").attr("kvid")) {
+                        for(var j in kv.items){
+                            if(item.attr("itemid")==kv.items[j].id){
+                                var _it = kv.items[j];
+                                $scope.cart.push(_it);
+                                for(var k in $scope.cart){
+                                    var price = $scope.cart[i].price||0;
+                                    $scope.orderPrice += parseFloat(price);
+                                }
+                                $scope.KhuVuc[i].items.splice(j,1);
+                                renderView2(kv);
+                                $scope.renderView1();
+                                $scope.$apply();
+                                break;
+                            }
                         }
                         break;
                     }
                 }
-                $scope.setupView2();
             }
         });
 
@@ -435,5 +504,31 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 .addClass("item-tail")
             $ele2.append(item);
         }
+    }
+
+    //Build View2
+    //Render View2
+    function renderKeDetail(slKe, slNgan, ktNgan, slDong, kienHang) {
+        var sk = 1;
+        var content = "";
+        while (sk <= slKe) {
+            var sd = 1;
+            var slCot = slNgan * ktNgan;
+            content = content + '<table border="1" class="ke ke' + sk + ' inline"+ width="' + slCot * 50 + '">';
+            while (sd <= slDong) {
+                content = content + '<tr>';
+                var sc = (sk - 1) * slNgan * ktNgan + 1;
+                //var sc = 1;
+                while ((sc - slCot * (sk - 1)) <= slCot) {
+                    content = content + '<td class="ngan ngan' + sd + '-' + sc + '" itemrow="' + sd + '" itemcol="' + sc + '"></td>';
+                    sc++;
+                }
+                content = content + '</tr>';
+                sd++;
+            }
+            content = content + '</table>     ';
+            sk++;
+        }
+        return content;
     }
 }
