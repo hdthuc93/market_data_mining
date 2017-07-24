@@ -534,13 +534,14 @@ table.inline{
 .item-tail:not(.item-head):after {
     content: " ";
     color: #f5f0ec;
-    background-color: #f5f0ec;
+    background-color: transparent;
     width: 15px;
     height: 15px;
     border: 1px solid #4e2706;
     position: absolute;
     border-radius: 50%;
     transform: translateY(18px) translateX(18px);
+    opacity: 1;
 }
 
 detail_area{

@@ -38,21 +38,101 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             size: 2,
             color: "orange",
             price: 27500
+        },{
+            id: "dochoi3",
+            name: "Do choi Tre Em",
+            row: 1,
+            col: 5,
+            size: 1,
+            color: "blue",
+            price: 11500
+        },{
+            id: "cachua99",
+            name: "Ca chua Da Lat",
+            row: 1,
+            col: 6,
+            size: 2,
+            color: "pink",
+            price: 57500
+        },{
+            id: "gao0",
+            name: "Gao Long An",
+            row: 1,
+            col: 8,
+            size: 2,
+            color: "yellow",
+            price: 99000
+        },{
+            id: "cooker",
+            name: "Noi com dien",
+            row: 1,
+            col: 10,
+            size: 1,
+            color: "brown",
+            price: 299000
+        },{
+            id: "nep0",
+            name: "Nep Long An",
+            row: 1,
+            col: 11,
+            size: 2,
+            color: "green",
+            price: 89000
         }, {
             id: "dochoi1",
             name: "do choi 1",
             row: 2,
             col: 1,
             size: 1,
-            color: "green",
+            color: "lightgreen",
             price: 75500
+        },{
+            id: "tao0",
+            name: "Tao Xanh",
+            row: 2,
+            col: 2,
+            size: 2,
+            color: "darkgreen",
+            price: 175500
+        }, {
+            id: "bap0",
+            name: "Bap",
+            row: 2,
+            col: 4,
+            size: 2,
+            color: "gray",
+            price: 27500
+        }, {
+            id: "bap2",
+            name: "Bap Nep",
+            row: 3,
+            col: 3,
+            size: 2,
+            color: "brown",
+            price: 37500
+        }, {
+            id: "olive0",
+            name: "Trai olive",
+            row: 4,
+            col: 7,
+            size: 1,
+            color: "brown",
+            price: 137500
+        }, {
+            id: "oliveoil1",
+            name: "Dau olive",
+            row: 4,
+            col: 9,
+            size: 2,
+            color: "green",
+            price: 237500
         }, {
             id: "dochoi2",
             name: "do choi 2",
             row: 5,
             col: 6,
             size: 2,
-            color: "#333",
+            color: "violet",
             price: 101000
         }]
     }, {
