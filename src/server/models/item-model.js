@@ -23,6 +23,11 @@ const Item = sequelize.define('ITEM', {
         notNull: true,
         field: 'SIZE'
     },
+    color: {
+        type: Sequelize.STRING,
+        notNull: true,
+        field: "COLOR"
+    }
     createdDate: {
         type: Sequelize.DATE,
         notNull: true,
