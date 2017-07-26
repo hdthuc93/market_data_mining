@@ -1,4 +1,4 @@
-import { sequelize, Sequelize } from './index';
+import { sequelize, Sequelize } from './index-model';
 import Area from './area-model';
 import Item from './item-model';
 

@@ -1,6 +1,4 @@
-import { sequelize, Sequelize } from './index';
-import Cell from './shelf-model';
-
+import { sequelize, Sequelize } from './index-model';
 
 const Item = sequelize.define('ITEM', {
     ID: {
@@ -15,11 +13,26 @@ const Item = sequelize.define('ITEM', {
         notNull: true,
         field: 'NAME'
     },
+    price: {
+        type: Sequelize.DECIMAL,
+        notNull: true,
+        field: 'PRICE'
+    },
     size: {
         type: Sequelize.INTEGER,
         notNull: true,
         field: 'SIZE'
+    },
+    createdDate: {
+        type: Sequelize.DATE,
+        notNull: true,
+        field: "CREATED_DATE"
+    },
+    expiredDate: {
+        type: Sequelize.DATE,
+        notNull: true,
+        field: "EXPIRED_DATE"
     }
 });
 
-export default Cell;
+export default Item;
