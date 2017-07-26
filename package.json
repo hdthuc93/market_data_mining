@@ -2,8 +2,7 @@
   "name": "martket-management",
   "version": "0.0.1",
   "author": "Phong-Thang-Thuc-Tuan",
-  "contributors": [
-  ],
+  "contributors": [],
   "scripts": {
     "dev-server": "./node_modules/.bin/babel-node --presets babel-preset-es2017 ./src/server/app.js",
     "dev-client": "gulp",
@@ -43,6 +42,8 @@
     "jsonwebtoken": "^7.3.0",
     "latest-version": "^3.1.0",
     "mysql": "^2.13.0",
-    "sequelize": "^3.30.4"
+    "sequelize": "^3.30.4",
+    "sequelize-cli": "^2.7.0",
+    "socket.io": "^2.0.3"
   }
 }
