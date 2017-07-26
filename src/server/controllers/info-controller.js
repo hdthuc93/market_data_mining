@@ -63,7 +63,7 @@ function getInfo(req, res) {
         return res.status(200).json({
             success: true,
             message: "Get info(s) successfully",
-            datas: lst
+            data: lst
         });
     })
     .catch((err) => {

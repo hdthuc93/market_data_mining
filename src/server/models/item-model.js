@@ -27,7 +27,7 @@ const Item = sequelize.define('ITEM', {
         type: Sequelize.STRING,
         notNull: true,
         field: "COLOR"
-    }
+    },
     createdDate: {
         type: Sequelize.DATE,
         notNull: true,
