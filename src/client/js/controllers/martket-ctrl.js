@@ -11,196 +11,29 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
     $scope.cart = [];
     $scope.orderPrice = 0;
-    
-    $scope.KhuVuc = [{
-        name: "Khu Vuc 1",
-        id: "kv1",
-        slKe: 2, // so luong ke
-        slNgan: 3, //co bao nhieu ngan / 1 ke
-        ktNgan: 2, // kich thuoc ngan 2 or 1
-        slDong: 5, //co bao nhieu Hang`
-        x: "10", //left
-        y: "10", //top
-        rotate: 0,
-        items: [{
-            id: "kidtoy",
-            name: "do choi KID",
-            row: 1,
-            col: 1,
-            size: 2,
-            color: "red",
-            price: 19500
-        }, {
-            id: "dochoi0",
-            name: "do choi 0",
-            row: 1,
-            col: 3,
-            size: 2,
-            color: "orange",
-            price: 27500
-        },{
-            id: "dochoi3",
-            name: "Do choi Tre Em",
-            row: 1,
-            col: 5,
-            size: 1,
-            color: "blue",
-            price: 11500
-        },{
-            id: "cachua99",
-            name: "Ca chua Da Lat",
-            row: 1,
-            col: 6,
-            size: 2,
-            color: "pink",
-            price: 57500
-        },{
-            id: "gao0",
-            name: "Gao Long An",
-            row: 1,
-            col: 8,
-            size: 2,
-            color: "yellow",
-            price: 99000
-        },{
-            id: "cooker",
-            name: "Noi com dien",
-            row: 1,
-            col: 10,
-            size: 1,
-            color: "brown",
-            price: 299000
-        },{
-            id: "nep0",
-            name: "Nep Long An",
-            row: 1,
-            col: 11,
-            size: 2,
-            color: "green",
-            price: 89000
-        }, {
-            id: "dochoi1",
-            name: "do choi 1",
-            row: 2,
-            col: 1,
-            size: 1,
-            color: "lightgreen",
-            price: 75500
-        },{
-            id: "tao0",
-            name: "Tao Xanh",
-            row: 2,
-            col: 2,
-            size: 2,
-            color: "darkgreen",
-            price: 175500
-        }, {
-            id: "bap0",
-            name: "Bap",
-            row: 2,
-            col: 4,
-            size: 2,
-            color: "gray",
-            price: 27500
-        }, {
-            id: "bap2",
-            name: "Bap Nep",
-            row: 3,
-            col: 3,
-            size: 2,
-            color: "brown",
-            price: 37500
-        }, {
-            id: "olive0",
-            name: "Trai olive",
-            row: 4,
-            col: 7,
-            size: 1,
-            color: "brown",
-            price: 137500
-        }, {
-            id: "oliveoil1",
-            name: "Dau olive",
-            row: 4,
-            col: 9,
-            size: 2,
-            color: "green",
-            price: 237500
-        }, {
-            id: "dochoi2",
-            name: "do choi 2",
-            row: 5,
-            col: 6,
-            size: 2,
-            color: "violet",
-            price: 101000
-        }]
-    }, {
-        name: "Khu Vuc 2",
-        id: "kv2",
-        slKe: 3, // so luong ke
-        slNgan: 2, //co bao nhieu ngan / 1 ke
-        ktNgan: 1, // kich thuoc ngan 2 or 1
-        slDong: 6, //co bao nhieu Hang`
-        x: "10", //left
-        y: "100", //top
-        rotate: -45,
-        items: [{
-            id: "cachua",
-            name: "ca chua",
-            row: 4,
-            col: 5,
-            size: 2,
-            color: "brown",
-            price: 2000
-        }, {
-            id: "dochoi",
-            name: "do choi",
-            row: 1,
-            col: 3,
-            size: 2,
-            color: "orange",
-            price: 80000
-        }, {
-            id: "thenho",
-            name: "the nho",
-            row: 2,
-            col: 1,
-            size: 1,
-            color: "green",
-            price: 15500
-        }, {
-            id: "cd",
-            name: "dia CD",
-            row: 5,
-            col: 1,
-            size: 1,
-            color: "#d3d3d3",
-            price: 21000
-        }, {
-            id: "usb",
-            name: "USB",
-            row: 3,
-            col: 2,
-            size: 2,
-            color: "violet",
-            price: 49000
-        }]
-    }];
+
+    $http.get('/api/info', { params: { } }).then(function successCallBack(res) {
+        console.log(res.data.data);
+        $scope.KhuVuc = res.data.data;
+        $scope.KhuVucList.data = $scope.KhuVuc;
+        $scope.renderView1();
+    }, function errorCallback() {
+        helper.popup.info({title: "Lỗi",message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.",close: function () { return;}})
+    });
 
     $scope.KhuVucList = {
         minRowsToShow: 10,
         enableSorting: false,
         data: $scope.KhuVuc,
+        rowHeight: 30,
         columnDefs: [
-            { field: 'name', displayName: 'Ten KV', minWidth: 90, maxWidth: 160 },
-            { field: 'slKe', displayName: 'SL Ke', minWidth: 20, maxWidth: 70 },
-            { field: 'slNgan', displayName: 'SL Ngan', minWidth: 20, maxWidth: 70 },
-            { field: 'ktNgan', displayName: 'Kt Ngan', minWidth: 20, maxWidth: 70 },
-            { field: 'slDong', displayName: 'SL Hang', minWidth: 20, maxWidth: 70 },
-            { field: 'x', displayName: 'x', minWidth: 60, maxWidth: 120 },
-            { field: 'y', displayName: 'y', minWidth: 60, maxWidth: 120 },
-            { field: 'rotate', displayName: 'Xoay', minWidth: 50, maxWidth: 70 },
+            { field: 'name', displayName: 'Khu Vực', minWidth: 90, maxWidth: 160 },
+            { field: 'shelves', displayName: 'Số kệ', minWidth: 20, maxWidth: 70 },
+            { field: 'col', displayName: 'Số ngăn', minWidth: 20, maxWidth: 70 },
+            { field: 'row', displayName: 'Số Hàng', minWidth: 20, maxWidth: 70 },
+            { field: 'x_axis', displayName: 'x', minWidth: 60, maxWidth: 120 },
+            { field: 'y_axis', displayName: 'y', minWidth: 60, maxWidth: 120 },
+            { field: 'radian', displayName: 'Xoay', minWidth: 50, maxWidth: 70 },
         ],
         onRegisterApi: function (gridApi) {
             $scope.gridApi = gridApi;
@@ -208,22 +41,20 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
 
     $scope.themKhuVuc = function () {
-         /*if ($scope.data) {
+         if ($scope.data) {
             var dk = {
                 name: "Khu Vuc " + Math.floor((Math.random() * 9999) + (Math.random() * 9999)),
-                id: "kv" + Math.floor((Math.random() * 9999) + (Math.random() * 9999)),
-                slKe: $scope.data.slKe || 1,
-                slNgan: $scope.data.slNgan || 1,
-                ktNgan: $scope.data.ktNgan || 1,
-                slDong: $scope.data.slDong || 1,
-                x: $scope.data.x || 0,
-                y: $scope.data.y || 0,
-                rotate: 0,
+                shelves: $scope.data.shelves || 1,
+                col: $scope.data.col || 1,
+                row: $scope.data.row || 1,
+                x: $scope.data.x_axis || 0,
+                y: $scope.data.y_axis || 0,
+                radian: 0,
                 items: []
             }
             $scope.KhuVuc.push(dk);
             $scope.KhuVucList.data = $scope.KhuVuc;
-        }*/
+        }
     }
 
     $scope.save = function () {
@@ -245,14 +76,13 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         var contentHTML = "";
         for (var i in $scope.KhuVuc) {
             var kv = $scope.KhuVuc[i];
-            var posX = (kv.x) ? 'left:' + kv.x + 'px;' : '';
-            var posY = (kv.y) ? 'top:' + kv.y + 'px;' : '';
-            var rotate = (kv.rotate) ? 'transform : rotate(' + kv.rotate + 'deg)' : '';
-            var _style = ' style="position:absolute;' + posX + posY + rotate + '" ';
+            var posX = (kv.x_axis) ? 'left:' + kv.x_axis + 'px;' : '';
+            var posY = (kv.y_axis) ? 'top:' + kv.y_axis + 'px;' : '';
+            var radian = (kv.radian) ? 'transform : radian(' + kv.radian + 'deg)' : '';
+            var _style = ' style="position:absolute;' + posX + posY + radian + '" ';
             var _id = ' id=' + kv.id + ' ';
             var _class = ' class="khuvuc-container" ';
-            var quayke = renderKe(kv.slKe, kv.slNgan
-                , kv.ktNgan, kv.slDong, kv.items);
+            var quayke = renderKe(kv.shelves, kv.col, kv.row, kv.items);
             contentHTML += '<div ' + _id + _class + _style + ' >' + quayke + '</div>';
         }
         mainArea.html(contentHTML);
@@ -329,30 +159,30 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 for (var i = 0; i < $scope.KhuVuc.length; i++) {
                     var kv = $scope.KhuVuc[i];
                     if (kv.id === $(this).attr('id')) {
-                        kv.x = $(this).position().left;
-                        kv.y = $(this).position().top;
+                        kv.x_axis = $(this).position().left;
+                        kv.y_axis = $(this).position().top;
                         console.log(919191,$(this).position());
-                        kv.rotate = parseInt(getDeg(this));
+                        kv.radian = parseInt(getDeg(this));
                         break;
                     }
                 }
             }
         });
     }
+
     //Render View 2
     function renderView2(khuvuc){
-        var slKe = khuvuc.slKe, slNgan= khuvuc.slNgan, 
-        ktNgan= khuvuc.ktNgan, slDong= khuvuc.slDong, kienHang= khuvuc.items;
+        var shelves = khuvuc.shelves, col= khuvuc.col, row= khuvuc.row, items= khuvuc.items;
 
         var sk = 1;
         var content = '<div id="control" class="control col-xs-12"><span id="remove" class="fa fa-trash"></span><span id="addtocart" class="fa fa-cart-plus"></span></div>';
-        while (sk <= slKe) {
+        while (sk <= shelves) {
             var sd = 1;
-            var slCot = slNgan * ktNgan;
+            var slCot = col;
             content = content + '<table border="1" class="ke ke' + sk + ' inline"+ width="' + slCot * 50 + '">';
-            while (sd <= slDong) {
+            while (sd <= row) {
                 content = content + '<tr>';
-                var sc = (sk - 1) * slNgan * ktNgan + 1;
+                var sc = (sk - 1) * col + 1;
                 //var sc = 1;
                 while ((sc - slCot * (sk - 1)) <= slCot) {
                     content = content + '<td class="ngan ngan' + sd + '-' + sc + '" itemrow="' + sd + '" itemcol="' + sc + '"></td>';
@@ -373,17 +203,13 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
         setupView2();
     }
-    setTimeout(function () {
-        $scope.renderView1();
-        $scope.indextab = 2;
-    }, 1000)
 
     //Render Ke trong View 1
-    function renderKe(slKe, slNgan, ktNgan, slDong, kienHang) {
+    function renderKe(shelves, col, row, items) {
         var sd = 1;
-        var slCot = slKe * slNgan * ktNgan;
+        var slCot = shelves * col;
         var content = '<table border="1" class="khuvuc" width="' + slCot * 10 + '">';
-        while (sd <= slDong) {
+        while (sd <= row) {
             content = content + '<tr>';
             var sc = 1;
             while (sc <= slCot) {
@@ -588,16 +414,16 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
     //Build View2
     //Render View2
-    function renderKeDetail(slKe, slNgan, ktNgan, slDong, kienHang) {
+    function renderKeDetail(shelves, col, row, items) {
         var sk = 1;
         var content = "";
-        while (sk <= slKe) {
+        while (sk <= shelves) {
             var sd = 1;
-            var slCot = slNgan * ktNgan;
+            var slCot = col;
             content = content + '<table border="1" class="ke ke' + sk + ' inline"+ width="' + slCot * 50 + '">';
-            while (sd <= slDong) {
+            while (sd <= row) {
                 content = content + '<tr>';
-                var sc = (sk - 1) * slNgan * ktNgan + 1;
+                var sc = (sk - 1) * col + 1;
                 //var sc = 1;
                 while ((sc - slCot * (sk - 1)) <= slCot) {
                     content = content + '<td class="ngan ngan' + sd + '-' + sc + '" itemrow="' + sd + '" itemcol="' + sc + '"></td>';

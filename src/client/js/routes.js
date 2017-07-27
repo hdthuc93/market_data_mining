@@ -15,6 +15,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
                 url: '/',
                 templateUrl: 'templates/martket.html'
             })
+            .state('items', {
+                url: '/items',
+                templateUrl: 'templates/itemlist.html'
+            })
             .state('statistic', {
                 url: '/statistic',
                 templateUrl: 'templates/statistic.html'

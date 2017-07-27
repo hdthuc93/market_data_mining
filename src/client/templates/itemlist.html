@@ -1,0 +1,25 @@
+<div class="row" ng-controller="ItemCtrl">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong><span class="fa fa-home"></span> Danh sách kiện hàng</strong>
+            </div>
+            <div class="panel-body">
+                <div class="container-fluid no-padding">
+                    <form role="form" name="item" id="item">
+                        <div class="row form-horizontal">
+                            <div class="btn-group col-xs-12">
+                                <button ng-click="addItem()" class="btn btn-sm btn-primary">Thêm Kiện Hàng</button>
+                                <button ng-click="removeItem()" class="btn btn-sm btn-primary">Xóa Kiện Hàng</button>
+                                <button ng-click="save()" class="btn btn-sm btn-primary">Lưu</button>
+                            </div>
+                            <div class="col-xs-12">
+                                <div ui-grid="ItemList" ui-grid-edit ui-grid-cellNav ui-grid-selection ui-grid-resize-columns class="grid"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
