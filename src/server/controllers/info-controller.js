@@ -1,4 +1,4 @@
-import { sequelize } from "../models/index-model.js";
+import { sequelize } from "../models/index-model";
 
 function getInfo(req, res) {
     let queryString = `Select a.ID as AREA_ID,
