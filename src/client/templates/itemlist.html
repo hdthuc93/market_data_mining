@@ -6,16 +6,63 @@
             </div>
             <div class="panel-body">
                 <div class="container-fluid no-padding">
-                    <form role="form" name="item" id="item">
+                    <form role="form" name="formItem" id="formItem">
                         <div class="row form-horizontal">
-                            <div class="btn-group col-xs-12">
-                                <button ng-click="addItem()" class="btn btn-sm btn-primary">Thêm Kiện Hàng</button>
-                                <button ng-click="removeItem()" class="btn btn-sm btn-primary">Xóa Kiện Hàng</button>
-                                <button ng-click="save()" class="btn btn-sm btn-primary">Lưu</button>
+                            <div class="col-xs-12">
+                                <div ui-grid="ItemList" style="max-width: 100%" ui-grid-selection ui-grid-resize-columns class="grid"></div>
                             </div>
                             <div class="col-xs-12">
-                                <div ui-grid="ItemList" ui-grid-edit ui-grid-cellNav ui-grid-selection ui-grid-resize-columns class="grid"></div>
+                                <button type="button" ng-click="insertItem()" class="btn btn-sm btn-primary">Thêm Kiện Hàng</button>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Tên kiện hàng: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemName" ng-disabled="" ng-model="item.name" type="text" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Giá: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemPrice" min="1" max="999999999" ng-disabled="" ng-model="item.price" type="number" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Màu sắc: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemColor" ng-disabled="" ng-model="item.color" type="text" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Kích thước: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemSize" min="1" max="2" ng-disabled="" ng-model="item.size" type="number" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Ngày tạo: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemColor" ng-disabled="" ng-model="item.createdDate" type="text" class="form-control input-sm">
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <label class="control-label col-xs-5 col-sm-4 input-sm">Ngày hết hạn: </label>
+                                    <div class="col-xs-7">
+                                        <input required name="itemSize" ng-disabled="" ng-model="item.expiredDate" type="text" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-xs-7 col-xs-offset-5 col-sm-offset-4 text-right">
+                                        <button ng-click="save()" class="btn btn-sm btn-primary">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
                         </div>
                     </form>
                 </div>

@@ -6,47 +6,52 @@
             </div>
             <div class="panel-body">
                 <div class="container-fluid no-padding">
-                    <form role="form" name="martket" id="martket">
+                    <form role="" name="martketForm" id="martketForm">
                         <div class="row form-horizontal">
                             <uib-tabset active="indextab">
                                 <!-- select="alertMe()"-->
                                 <uib-tab index="1" heading="Danh sách khu vực">
                                     <div class="row form-horizontal">
-                                        <div class="col-xs-4">
+                                        <!-- <div class="col-xs-4">
                                             <div class="form-group">
-                                                <label class="control-label col-xs-8 input-sm">SL kệ:</label>
-                                                <div class="col-xs-4">
-                                                    <input ng-model="data.slKe" ng-init="data.slKe = 1" type="text" class="form-control input-sm">
+                                                <label class="control-label col-xs-5 input-sm">Tên khu vực:</label>
+                                                <div class="col-xs-7">
+                                                    <input required ng-model="data.name" type="text" class="form-control input-sm">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-xs-8 input-sm">Số lượng ngăn:</label>
-                                                <div class="col-xs-4">
-                                                    <input ng-model="data.slNgan" ng-init="data.slNgan = 3" type="text" class="form-control input-sm">
+                                                <label class="control-label col-xs-5 input-sm">Số kệ:</label>
+                                                <div class="col-xs-7">
+                                                    <input required ng-model="data.shelves" type="text" class="form-control input-sm">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-xs-8 input-sm">Kích thước ngăn (1 or 2):</label>
-                                                <div class="col-xs-4">
-                                                    <input ng-model="data.ktNgan" ng-init="data.ktNgan = 2" type="text" class="form-control input-sm">
+                                                <label class="control-label col-xs-5 input-sm">Số lượng ngăn:</label>
+                                                <div class="col-xs-7">
+                                                    <input required ng-model="data.col" type="text" class="form-control input-sm">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-xs-8 input-sm">Số lượng hàng (trong 1 kệ):</label>
-                                                <div class="col-xs-4">
-                                                    <input ng-model="data.slDong" ng-init="data.slDong = 2" type="text" class="form-control input-sm">
+                                                <label class="control-label col-xs-5 input-sm">Số lượng hàng:</label>
+                                                <div class="col-xs-7">
+                                                    <input required ng-model="data.row" type="text" class="form-control input-sm">
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12 text-right">
+                                                     <button ng-click="save()" type="submit" class="btn btn-sm btn-primary">Thêm khu vực</button> 
+                                                     <button ng-click="addShelve()" type="button" class="btn btn-sm btn-primary">Reset</button> 
+                                                    <button ng-click="build()" type="button" class="btn btn-sm btn-primary">Build</button>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-xs-8">
                                             <div class="form-group">
                                                 <div class="col-xs-12">
-                                                    <button ng-click="themKhuVuc()" class="btn btn-sm btn-primary">Thêm</button>
-                                                    <button ng-click="save()" class="btn btn-sm btn-primary">Lưu</button>
-                                                    <button ng-click="build()" class="btn btn-sm btn-primary">Build</button>
+                                                    <button ng-click="build()" type="button" class="btn btn-sm btn-primary">Build View 1 </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <div ui-grid="KhuVucList" class="grid"></div>
+                                            <div ui-grid="zoneList" style="max-width: 100%" ui-grid-resize-columns class="grid"></div>
                                         </div>
                                     </div>
                                 </uib-tab>
@@ -80,7 +85,7 @@
                                             </ul>
                                         </div>-->
                                         <div class="col-xs-9" style="padding: 0;overflow: auto;border: 1px solid gray; height: 98%;">
-                                            <div id="detail_area" style="width: 1500px;"></div>
+                                            <div id="detail_area"></div>
                                         </div>
                                         <div class="col-xs-3" style="padding: 0;overflow: auto;border: 1px solid gray; border-left:0;height: 98%;">
                                             <div id="cart-title" class="col-xs-12"><span>Giỏ hàng</span><button ng-show="cart.length" class="btn btn-primary pull-right">Thanh toán</button></div>

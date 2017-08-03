@@ -7,62 +7,89 @@ angular.module('RDash')
     .controller('MartketCtrl', ['$scope', '$cookieStore', '$http', '$rootScope', '$timeout', 'helper', MartketCtrl]);
 
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
-    $scope.selectedTab = 0;
+    function initModel(){
+        $scope.data = {
+            name: "",
+            shelves: "",
+            row:"",
+            col:"",
+            item:[],
+            x_axis:0,
+            y_axis:0
+        };
+        $scope.selectedTab = 0;
+        $scope.cart = [];
+        $scope.orderPrice = 0;
+    }
+    initModel();
 
-    $scope.cart = [];
-    $scope.orderPrice = 0;
+    function getZoneList(){
+        $http.get('/api/info', { params: { } }).then(function successCallBack(res) {
+            $scope.KhuVuc = res.data.data;
+            $scope.zoneList.data = $scope.KhuVuc;
+            $scope.renderView1();
+        }, function errorCallback() {
+            helper.popup.info({title: "Lỗi",message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.",close: function () { return;}})
+        });
+    }
+    getZoneList();
+    
 
-    $http.get('/api/info', { params: { } }).then(function successCallBack(res) {
-        console.log(res.data.data);
-        $scope.KhuVuc = res.data.data;
-        $scope.KhuVucList.data = $scope.KhuVuc;
-        $scope.renderView1();
-    }, function errorCallback() {
-        helper.popup.info({title: "Lỗi",message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.",close: function () { return;}})
-    });
-
-    $scope.KhuVucList = {
+    $scope.zoneList = {
         minRowsToShow: 10,
         enableSorting: false,
-        data: $scope.KhuVuc,
-        rowHeight: 30,
+        rowHeight: 35,
+        data: [],
         columnDefs: [
             { field: 'name', displayName: 'Khu Vực', minWidth: 90, maxWidth: 160 },
             { field: 'shelves', displayName: 'Số kệ', minWidth: 20, maxWidth: 70 },
             { field: 'col', displayName: 'Số ngăn', minWidth: 20, maxWidth: 70 },
             { field: 'row', displayName: 'Số Hàng', minWidth: 20, maxWidth: 70 },
-            { field: 'x_axis', displayName: 'x', minWidth: 60, maxWidth: 120 },
-            { field: 'y_axis', displayName: 'y', minWidth: 60, maxWidth: 120 },
+            { field: 'x_axis', displayName: 'Tọa độ x', minWidth: 60, maxWidth: 120 },
+            { field: 'y_axis', displayName: 'Tọa độ y', minWidth: 60, maxWidth: 120 },
             { field: 'radian', displayName: 'Xoay', minWidth: 50, maxWidth: 70 },
-        ],
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
-        }
+        ]
     }
 
-    $scope.themKhuVuc = function () {
-         if ($scope.data) {
-            var dk = {
-                name: "Khu Vuc " + Math.floor((Math.random() * 9999) + (Math.random() * 9999)),
-                shelves: $scope.data.shelves || 1,
-                col: $scope.data.col || 1,
-                row: $scope.data.row || 1,
-                x: $scope.data.x_axis || 0,
-                y: $scope.data.y_axis || 0,
-                radian: 0,
-                items: []
-            }
-            $scope.KhuVuc.push(dk);
-            $scope.KhuVucList.data = $scope.KhuVuc;
-        }
+    $scope.addShelve = function () {
+        $scope.data = {
+            name: "",
+            shelves: "",
+            row:"",
+            col:"",
+            item:[],
+            x_axis:0,
+            y_axis:0
+        };
+         
     }
 
     $scope.save = function () {
-        var data = $(".khuvuc");
-        if (data.length) {
-            for (var i = 0; i < data.length; i++) {
-                console.log($(data[i]))
-            }
+        if($scope.martketForm.$invalid){
+            helper.popup.info({
+                title: "Thông báo",
+                message: "Vui lòng điền đầy đủ thông tin.",
+                close: function () {
+                    return;
+                }
+            });
+            return;
+        }
+        var data = {
+            id:$scope.data.id||null,
+            name: $scope.data.name,
+            shelves: $scope.data.shelves || 1,
+            col: $scope.data.col || 1,
+            row: $scope.data.row || 1,
+            x: $scope.data.x_axis || 0,
+            y: $scope.data.y_axis || 0,
+            radian: $scope.data.radian||0,
+            items: $scope.data.items||[]
+        }
+        
+        if(!data.id){
+            //add new
+            console.log("add new Khu vuc", data)
         }
     }
 
@@ -103,6 +130,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         }
 
+        //Thu Phong
         $("#main_area").panzoom();
         var ele = $("#main_area");
         ele.panzoom("destroy");
@@ -123,6 +151,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
+        //Event select Zone to render view2
         ele.selectable(
             {
                 filter: ".khuvuc-container",
@@ -161,8 +190,9 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                     if (kv.id === $(this).attr('id')) {
                         kv.x_axis = $(this).position().left;
                         kv.y_axis = $(this).position().top;
-                        console.log(919191,$(this).position());
-                        kv.radian = parseInt(getDeg(this));
+                        console.log("vi tri moi cua Khu vuc",$(this).position());
+                        //kv.radian = parseInt(getDeg(this)); //hien tai, mac dinh la 0
+                        //action Luu lai Khu vuc
                         break;
                     }
                 }
@@ -363,7 +393,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         $("#detail_area #control #addtocart").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) { 
-                console.log("ADD CART NE");
+                console.log("ADD CART NE", $scope.cart);
                 var item = $(ui.draggable);
                 for (var i in $scope.KhuVuc) {
                     var kv = $scope.KhuVuc[i];
@@ -373,7 +403,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                 var _it = kv.items[j];
                                 $scope.cart.push(_it);
                                 for(var k in $scope.cart){
-                                    var price = $scope.cart[i].price||0;
+                                    var price = ($scope.cart[k].price)?($scope.cart[k].price):0;
                                     $scope.orderPrice += parseFloat(price);
                                 }
                                 $scope.KhuVuc[i].items.splice(j,1);
@@ -391,7 +421,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
     }
 
-    //Fill Item
+    //Fill Item trong View 2
     function fillItem(id, name, row, col, size, color) {
         var $ele = $("#detail_area td[itemrow='" + row + "'][itemcol='" + col + "']");
         var item = document.createElement("DIV");

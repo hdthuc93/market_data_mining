@@ -99,7 +99,7 @@ button, textarea, input, select{
     border-color: #dad1c9!important;
 }
 .ui-grid-cell-contents {
-    border-bottom: 1px solid #dad1c9!important;
+    /* border-bottom: 1px solid #dad1c9!important; */
 }
 .ui-grid-header .ui-grid-cell-contents {
     border-bottom: 1px solid transparent!important;
@@ -108,7 +108,7 @@ button, textarea, input, select{
     border-right: 1px solid #258a3f!important;
 }
 .ui-grid-icon-ok{
-    font-size: 14px;
+    font-size: 13.5px;
 }
 /*ui-grid - END*/
 
