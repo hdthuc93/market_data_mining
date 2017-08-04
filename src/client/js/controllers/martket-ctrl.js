@@ -7,6 +7,49 @@ angular.module('RDash')
     .controller('MartketCtrl', ['$scope', '$cookieStore', '$http', '$rootScope', '$timeout', 'helper', MartketCtrl]);
 
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
+    
+    var _socket = null;
+    _socket = io('http://localhost:3000/');
+
+    _socket.io.on('connect_error', function (err) {
+    console.log("socket can not connect to server: " + JSON.stringify(err));
+    });
+    _socket.on('disconnect', function () {
+        console.log("*******disconnected to server.");
+    });
+    _socket.on("connect", function () {
+        console.log("****** socket connected")
+    });
+
+    _socket.on("change_zone_view1",function(data){
+        console.log("nhan dc su thay doi vi tri khu vuc view 1",data);
+        var kv = data;
+        for(var i in $scope.KhuVuc){
+            if(kv.id==$scope.KhuVuc[i].id){
+                $scope.KhuVuc[i] = kv;
+                $scope.renderView1();
+                break;
+            }
+        }
+    });
+
+    _socket.on("change_zone_view2",function(data){
+        console.log("nhan dc su thay doi vi tri khu vuc view 2",data);
+        var kv = data;
+        for(var i in $scope.KhuVuc){
+            if(kv.id==$scope.KhuVuc[i].id){
+                $scope.KhuVuc[i] = kv;
+                $scope.renderView1();
+                if(kv.id==$("#detail_area").attr("kvid")){
+                    //if View2 === khuvuc change content
+                    renderView2(kv);
+                }
+                
+                break;
+            }
+        }
+    });
+    
     function initModel(){
         $scope.data = {
             name: "",
@@ -185,12 +228,18 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             create: function (event, ui) {
             },
             stop: function (event, ui) {
+                console.log("Drag xong ne");
                 for (var i = 0; i < $scope.KhuVuc.length; i++) {
                     var kv = $scope.KhuVuc[i];
-                    if (kv.id === $(this).attr('id')) {
+                    console.log(1111,kv)
+                    if (kv.id == $(this).attr('id')) {
                         kv.x_axis = $(this).position().left;
                         kv.y_axis = $(this).position().top;
                         console.log("vi tri moi cua Khu vuc",$(this).position());
+                        var newPos = $(this).position();
+                        //saving to DB...
+                        //After save to db success
+                        _socket.emit("change_zone_view1",kv);
                         //kv.radian = parseInt(getDeg(this)); //hien tai, mac dinh la 0
                         //action Luu lai Khu vuc
                         break;
@@ -205,7 +254,11 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         var shelves = khuvuc.shelves, col= khuvuc.col, row= khuvuc.row, items= khuvuc.items;
 
         var sk = 1;
-        var content = '<div id="control" class="control col-xs-12"><span id="remove" class="fa fa-trash"></span><span id="addtocart" class="fa fa-cart-plus"></span></div>';
+        var content = '<div id="control" class="control col-xs-12"><span id="remove" class="fa fa-trash"></span><span id="addtocart" class="fa fa-cart-plus"></span></div><table border="0" class="inline"+ width="' + slCot * 50 + '">';
+        for(var i = 1; i<=row; i++){
+            content = content+'<tr><td class="ngan">&nbsp;Hàng '+i+'&nbsp;</td></tr>';
+        }
+        content = content+'</table>';
         while (sk <= shelves) {
             var sd = 1;
             var slCot = col;
@@ -338,20 +391,22 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                         items.push(_it);
                     }
                 }
-
+                
+                var khuvucChange = null;
                 for (var i in $scope.KhuVuc) {
                     if ($scope.KhuVuc[i].id == $("#detail_area").attr("kvid")) {
                         if(items.length){
                             $scope.KhuVuc[i].items =  items;
                         }
-                        var khuvuc = $scope.KhuVuc[i];
-                        renderView2(khuvuc);
+                        khuvucChange = $scope.KhuVuc[i];
+                        renderView2(khuvucChange);
                         break;
                     }
                 }
                 if(isChange){
                     //socket
                     console.log("ban socket co su thay doi");
+                    _socket.emit("change_zone_view2",khuvucChange);
                     $scope.renderView1();
                 }
             }
