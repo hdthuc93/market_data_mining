@@ -69,9 +69,6 @@ button, textarea, input, select{
     top: 50px;
     left: 40%;
 }
-
-
-
 .ui-grid {
     border: 1px solid #258a3f!important;
 }
@@ -338,18 +335,6 @@ ul.sidebar li a {
 }
 /*slide bar menu style - END*/
 
-/*school year page - START*/
-.current-school{
-    color: blue;
-}
-.past-school{
-    color: gray;
-}
-.past-school{
-    color: green;
-}
-/*school year page - END*/
-
 
 /*Login form - START*/
 .login-form-1 {
@@ -474,9 +459,7 @@ ul.sidebar li a {
 }
 /*Login form - END*/
 
-
-
-
+/*GENERAL STYLES - START*/
 table{
     table-layout: fixed;
 }
@@ -497,68 +480,33 @@ table{
 .ui-grid-render-container-body .ui-grid-header-canvas {
     height: 30px !important;
 }
+/*GENERAL STYLES - END*/
+
+/*VIEW 1 - START*/
 div.khuvuc-container {
     height: auto;
     width: auto;
     border: 1px solid #333;
     background-color:  #fff;
+    cursor: move;
 }
-
 div.khuvuc-container.ui-selected {
     background-color:  #8fe485;
 }
 div.khuvuc-container.ui-selecting {
     background-color:  violet;
 }
-
 table.khuvuc td.ngan{
     height: 8px;
 }
-#detail_area td.ngan{
-     height: 50px;
-}
-table.ke{
-    border: 1px solid #333;
-}
+/*VIEW 1 - END*/
 
-#detail_area table.inline{
-    margin: 10px ;
-    display: inline-table;
-    vertical-align: top;
-}
-
-.item-head{
-    cursor: move;
-}
-
-.item-tail:not(.item-head):after {
-    content: " ";
-    color: #f5f0ec;
-    background-color: transparent;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #4e2706;
-    position: absolute;
-    border-radius: 50%;
-    transform: translateY(18px) translateX(18px);
-    opacity: 1;
-}
-
-detail_area{
+/*VIEW 2 - START*/
+#detail_area{
     margin-bottom: 0;
 }
-
-#detail_area table.ke td.ngan.ui-droppable-hover{
-    background-color: lightgray;
-    border-color: gray;
-    opacity: 0.7;
-}
-
 #detail_area div#control{
     padding : 10px;
-}
-#detail_area div#control{
-    /* background-color: #808080; */
 }
 #detail_area div#control>span{
     padding: 10px 12px;
@@ -576,21 +524,60 @@ detail_area{
     background-color: green;
     color: #fff;
 }
-
+#detail_area table.inline{
+    margin: 10px ;
+    display: inline-table;
+    vertical-align: top;
+}
+#detail_area td{       
+    line-height: 1;
+}
+#detail_area td.ngan{
+     height: 50px;
+}
+#detail_area td.shelve-name{
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: #8a613e;
+}
+#detail_area table.ke td.ngan.ui-droppable-hover{
+    background-color: lightgray;
+    border-color: gray;
+    opacity: 0.7;
+}
 #detail_area #remove.ui-droppable-hover{
     background-color: rgba(232, 18, 18, 0.61);
 }
 #detail_area #addtocart.ui-droppable-hover{
     background-color: rgba(0, 128, 0, 0.68);
 }
-.item-head.ui-draggable-dragging{
+#detail_area .item-head.ui-draggable-dragging{
     opacity: .4;
     border-radius: 50%;
 }
-
 #cart-title{
     margin-bottom: 10px;
     padding: 10px 15px;
     background-color: rgba(128, 128, 128, 0.38);
     font-size: 150%;
 }
+table.ke{
+    border: 1px solid #333;
+}
+.item-head{
+    cursor: move;
+}
+.item-tail:not(.item-head):after {
+    content: " ";
+    color: #f5f0ec;
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #4e2706;
+    position: absolute;
+    border-radius: 50%;
+    transform: translateY(18px) translateX(18px);
+    opacity: 1;
+}
+/*VIEW 2 - END*/

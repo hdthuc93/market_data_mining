@@ -12,18 +12,18 @@ app.use(express.static(__dirname + '/'));
 
 io.on('connection', function (socket) {
     console.log('===== socket is connected =====');
-
     socket.on('disconnect', function () {
         console.log('===== Socket is disconnected =====');
     })
-
+    //Nhận socket từ client A
     socket.on('change_zone_view1',function(data){
         var _data = data;
+        //Bắn socket cho các client khác A
         socket.broadcast.emit('change_zone_view1',_data);
     })
-    socket.on('change_zone_view2',function(data){
+    socket.on('change_item_view2',function(data){
         var _data = data;
-        socket.broadcast.emit('change_zone_view2',_data);
+        socket.broadcast.emit('change_item_view2',_data);
     })
 
 });

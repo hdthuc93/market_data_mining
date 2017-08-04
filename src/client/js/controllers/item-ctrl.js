@@ -55,7 +55,7 @@ function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
         initModel();
     }
 
-    $scope.save = function(){console.log(111111);
+    $scope.save = function(){
         if($scope.formItem.$invalid){
             helper.popup.info({
                 title: "Thông báo",
