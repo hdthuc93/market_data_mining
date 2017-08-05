@@ -16,9 +16,9 @@ function getInfo(req, res) {
                                     i.COLOR as COLOR,
                                     c.ROW_INDEX as ROW_INDEX,
                                     c.COL_INDEX as COL_INDEX
-                        From ITEM as i, AREA as a, CELL as c
-                        Where i.ID = c.ITEM_ID And
-                                    a.ID = c.AREA_ID;`;
+                        From  AREA as a 
+                                    LEFT JOIN CELL as c ON a.ID = c.AREA_ID
+                                    LEFT JOIN ITEM as i ON i.ID = c.ITEM_ID;`;
 
     let lst = [];
     sequelize.query(queryString)
