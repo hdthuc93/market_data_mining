@@ -341,7 +341,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
-
+        //CHANGE ITEM POSITION
         $("#detail_area table.ke td.ngan").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
@@ -410,6 +410,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
+        //REMOVE
         $("#detail_area #control #remove").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
@@ -423,7 +424,9 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                             var zone = $scope.Zones[i];
                             if (zone.id == $("#detail_area").attr("zoneid")) {
                                 for (var j in zone.items) {
-                                    if (item.attr("itemid") == zone.items[j].id) {
+                                    if (item.attr("itemid") == zone.items[j].id &&
+                            parseInt(item.parent().attr('itemrow'))==parseInt(zone.items[j].row) &&
+                            parseInt(item.parent().attr('itemcol'))==parseInt(zone.items[j].col)) {
                                         var _it = zone.items[j];
                                         $scope.Zones[i].items.splice(j, 1);
                                         renderView2(zone);
@@ -444,6 +447,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
+        //ADD ITEM TO CART
         $("#detail_area #control #addtocart").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
