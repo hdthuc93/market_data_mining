@@ -48,16 +48,18 @@ function getInfo(req, res) {
 
             if(!lst[j].items)
                 lst[j].items = [];
-
-            lst[j].items.push({
-                id: results[i]["ITEM_ID"],
-                name: results[i]["ITEM_NAME"],
-                price: results[i]["PRICE"],
-                size: results[i]["SIZE"],
-                row: results[i]["ROW_INDEX"],
-                col: results[i]["COL_INDEX"],
-                color: results[i]["COLOR"]
-            });
+            
+            if(results[i]["ITEM_ID"]) {
+                lst[j].items.push({
+                    id: results[i]["ITEM_ID"],
+                    name: results[i]["ITEM_NAME"],
+                    price: results[i]["PRICE"],
+                    size: results[i]["SIZE"],
+                    row: results[i]["ROW_INDEX"],
+                    col: results[i]["COL_INDEX"],
+                    color: results[i]["COLOR"]
+                });
+            }
         }
 
         return res.status(200).json({
