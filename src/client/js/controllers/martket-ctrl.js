@@ -33,7 +33,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     });
 
     _socket.on("change_item_view2", function (data) {
-        var zone = data;
+        var zone = data;console.log(zone,"change view 1");
         for (var i in $scope.Zones) {
             if (zone.id == $scope.Zones[i].id) {
                 $scope.Zones[i] = zone;
@@ -400,9 +400,10 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                         renderView2(khuvucChange);
                         break;
                     }
-                }
+                }console.log("1221SSSSSSSSS3334dddd",isChange);
                 if (isChange) {
                     //Bắn socket thay đổi item ở view2
+                    console.log("23SSSSSSSSSSSSS")
                     _socket.emit("change_item_view2", khuvucChange);
                     $scope.renderView1();
                 }
@@ -427,6 +428,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                         $scope.Zones[i].items.splice(j, 1);
                                         renderView2(zone);
                                         $scope.renderView1();
+                                        _socket.emit("change_item_view2", $scope.Zones[i]);
                                         break;
                                     }
                                 }
@@ -478,6 +480,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                 
                                 
                                 $scope.Zones[i].items.splice(j, 1);
+                                _socket.emit("change_item_view2", $scope.Zones[i]);
                                 renderView2(zone);
                                 $scope.renderView1();
                                 $scope.$apply();
