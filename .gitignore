@@ -60,4 +60,5 @@ npm-debug.log
 #IDE files
 /nbproject
 
-#Ignore private info
+#Ignore build Folder
+./src/build

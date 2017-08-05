@@ -6,7 +6,8 @@
   "scripts": {
     "dev-server": "./node_modules/.bin/babel-node --presets babel-preset-es2017 ./src/server/app.js",
     "dev-client": "gulp",
-    "dev": "concurrently --kill-others \"npm run dev-client\" \"npm run dev-server\""
+    "dev": "concurrently --kill-others \"npm run dev-client\" \"npm run dev-server\"",
+    "build": "babel -d ./src/build ./src/server"
   },
   "babel": {
     "presets": [
