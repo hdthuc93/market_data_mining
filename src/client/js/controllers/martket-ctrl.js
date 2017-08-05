@@ -451,13 +451,32 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                     var zone = $scope.Zones[i];
                     if (zone.id == $("#detail_area").attr("zoneid")) {
                         for (var j in zone.items) {
-                            if (item.attr("itemid") == zone.items[j].id) {
+                            if (item.attr("itemid") == zone.items[j].id &&
+                            parseInt(item.parent().attr('itemrow'))==parseInt(zone.items[j].row) &&
+                            parseInt(item.parent().attr('itemcol'))==parseInt(zone.items[j].col)){
                                 var _it = zone.items[j];
-                                $scope.cart.push(_it);
-                                for (var k in $scope.cart) {
-                                    var price = ($scope.cart[k].price) ? ($scope.cart[k].price) : 0;
-                                    $scope.orderPrice += parseFloat(price);
+                                _it.qty = 1;
+                                if($scope.cart.length){
+                                    $scope.orderPrice += parseFloat(_it.price);
+                                    var isExist = false;
+                                    for (var k in $scope.cart) {
+                                        if($scope.cart[k].id==_it.id){
+                                            $scope.cart[k].qty++;
+                                            isExist = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!isExist){
+                                        $scope.cart.push(_it);
+                                    }                                    
                                 }
+                                if(!$scope.cart.length){
+                                    $scope.orderPrice += parseFloat(_it.price);
+                                    $scope.cart.push(_it);
+                                }
+
+                                
+                                
                                 $scope.Zones[i].items.splice(j, 1);
                                 renderView2(zone);
                                 $scope.renderView1();

@@ -495,9 +495,15 @@ div.khuvuc-container.ui-selected {
 }
 div.khuvuc-container.ui-selecting {
     background-color:  violet;
+    border: 1px solid orange;
+    box-shadow: 0 0 9px rgb(206, 194, 52);
 }
 table.khuvuc td.ngan{
     height: 8px;
+}
+
+table.khuvuc{
+    border-color: black;
 }
 /*VIEW 1 - END*/
 
@@ -571,7 +577,7 @@ table.ke{
 .item-tail:not(.item-head):after {
     content: " ";
     color: #f5f0ec;
-    background-color: transparent;
+    background-color: rgba(176, 231, 236, 0.76);
     width: 15px;
     height: 15px;
     border: 1px solid #4e2706;
@@ -579,5 +585,13 @@ table.ke{
     border-radius: 50%;
     transform: translateY(18px) translateX(18px);
     opacity: 1;
+}
+#cart_area .list-group-item.active, 
+#cart_area .list-group-item.active:focus, 
+#cart_area .list-group-item.active:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #8a613e;
+    border-color: #333333;
 }
 /*VIEW 2 - END*/

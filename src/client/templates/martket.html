@@ -61,10 +61,10 @@
                                         <panzoom id="PanZoom" config="panzoomConfig" model="panzoomModel" style="width:100%; height: 100%">  
                                         </panzoom>-->
                                         <div>
-                                            <input type="checkbox" id="active-zoom" />Thu phóng
+                                            <input type="checkbox" id="active-zoom" /> Thu phóng
                                             <div id="zoom-control">
                                                 <input type="range" class="zoom-range" style="width: 100%; max-width: 400px;" />
-                                                <button class="reset-panzoom">Reset </button>
+                                                <button  type="button" class="btn btn-sm btn-primary reset-panzoom">Khôi phục </button>
                                             </div>
                                         </div>
                                         <div style="height: 500px;">
@@ -92,7 +92,8 @@
                                             <div class="col-xs-12 text-right" style="margin-bottom: 10px;">Tổng cộng: <b>{{orderPrice}} VND</b></div>
                                             <div id="cart_area" class="col-xs-12" style="height: 75%; max-height: 350px; overflow-y: scroll;">
                                                 <ul class="list-group">
-                                                    <li  class="list-group-item" ng-repeat="it in cart">{{it.name}}</li>
+                                                    <li  class="list-group-item active"><b>Kiện hàng<span class="pull-right">Số lượng</span></b></li>
+                                                    <li  class="list-group-item" ng-repeat="it in cart">{{it.name}}<span class="badge">{{it.qty}}</span></li>
                                                 </ul>
                                             </div>
                                         </div>
