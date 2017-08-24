@@ -541,6 +541,20 @@ table.khuvuc{
 #detail_area td.ngan{
      height: 50px;
 }
+#detail_area td.ngan .item-info{
+    font-size: 9px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    margin-top: 30%;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 #detail_area td.shelve-name{
     padding: 5px;
     color: white;

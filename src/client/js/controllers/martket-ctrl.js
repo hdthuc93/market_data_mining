@@ -511,6 +511,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             .attr("itemsize", itemData.size)
             .attr("itemprice", itemData.price)
             .addClass((parseInt(itemData.size) == 2) ? "item-head" : "item-head item-tail");
+        $(item).append('<label class="item-info">'+itemData.name+'</label>');
         $ele.append(item);
 
         if (parseInt(itemData.size) == 2) {
