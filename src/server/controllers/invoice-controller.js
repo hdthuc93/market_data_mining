@@ -42,7 +42,7 @@ function createInvoice(req, res) {
     })
     .then((result) => {
         return res.status(200).json({
-            success: false,
+            success: true,
             message: "Insert invoice successfully"
         });
     })
