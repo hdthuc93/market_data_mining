@@ -8,4 +8,7 @@ router.route('/')
     .get(itemCtrl.getAllItems)
     .post(itemCtrl.insertItem)
     .put(itemCtrl.updateItem)
+
+router.route('/bestseller')
+    .get(itemCtrl.getItemsBestSeller)
 export default router;

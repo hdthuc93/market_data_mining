@@ -1,4 +1,5 @@
 import Item from '../models/item-model';
+import InvoiceDetail from '../models/invoice_detail-model';
 import { convertToDDMMYYYY } from '../utilities/date_time_format'
 
 function getAllItems(req, res) {
@@ -112,4 +113,58 @@ function updateItem(req, res) {
     });
 }
 
-export default { getAllItems, insertItem, updateItem };
+function getItemsBestSeller(req, res) {
+
+    Item.findAll({
+        include: [{
+            model: InvoiceDetail
+        }]
+    })
+    .then((results) => {
+        let resLen = results.length;
+        let mItem = new Map();
+        let lstBestSeller = [], lstTemp = [];
+        let maxNum;
+
+        for(let i = 0; i < resLen; ++i) {
+            if(!results[i]["INVOICE_DETAIL"] || !results[i]["INVOICE_DETAIL"].itemID)
+                continue;
+
+            if(mItem.has(results[i].ID)) {
+                mItem[results[i].ID].quan += 1;
+            } else {
+                mItem[results[i].ID] = {
+                    name: results[i].name,
+                    quan: 1
+                }
+            }
+        }
+
+        mItem.forEach((value, key) => {
+            lstTemp.push(value);
+        });
+
+        if(lstTemp.length > 0) {
+            maxNum = lstTemp.reduce((a, b) => {
+                return Math.max(a.quan, b.quan);
+            });
+
+            lstBestSeller = lstTemp.filter(item => item.quan === maxNum);
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Get best seller item(s) successfully",
+            data: lstBestSeller
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get best seller item(s)"
+        });
+    })
+}
+
+export default { getAllItems, insertItem, updateItem, getItemsBestSeller };
