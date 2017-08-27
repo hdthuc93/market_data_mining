@@ -21,6 +21,11 @@ const InvoiceDetail = sequelize.define('INVOICE_DETAIL', {
         notNull: true,
         field: 'ITEM_ID'
     },
+    quantity: {
+        type: Sequelize.INTEGER,
+        notNull: false,
+        field: 'QUANTITY'
+    },
     price: {
         type: Sequelize.DECIMAL,
         notNull: false,
