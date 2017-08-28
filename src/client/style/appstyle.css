@@ -609,3 +609,82 @@ table.ke{
     border-color: #333333;
 }
 /*VIEW 2 - END*/
+
+
+
+
+
+
+
+
+body {
+    background: #f3f3f3;
+    font-family: arial;
+    font-size: 12.5px;
+    color: #333!important;
+}
+.input-error{
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset, rgb(179, 0, 0) 0px 0px 8px !important;
+    border-color: rgb(177, 0, 0) !important;
+}
+.input-sm{
+    font-size: 12.5px;
+    height: 26px!important;
+}
+input[type=radio] {
+    margin: 1px 0 0;
+    line-height: normal;
+}
+textarea.input-sm{
+    height: auto!important;
+}
+.form-horizontal .control-label {
+    padding-top: 5px;
+}
+.no-padding{
+    padding: 0;
+}
+.no-margin{
+    margin: 0;
+}
+.text-left{
+    text-align: left!important;
+}
+
+.text-right{
+    text-align: right!important;
+}
+.form-control:focus {
+    border-color: #b38864;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(214, 166, 125);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(214, 166, 125);
+}
+button, textarea, input, select{
+    outline: none!important;
+}
+.loading {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    margin: 100px auto;
+    z-index: 9999;
+    top: 29%;
+    left: 49%;
+}
+.loading i{
+    /*color: #da9a32;*/
+    color: #ffffff;
+    z-index: 10001;
+    position: absolute;
+}
+/*ui-grid - START*/
+.ui-grid-column-menu-button{
+    display: none;
+    visibility:  hidden;
+}
+.grid .grid-status{
+    position: absolute;
+    top: 50px;
+    left: 40%;
+}

@@ -6,9 +6,9 @@ var server = app.listen(connection.port, () => {
     console.log(`Server is running on port: ${connection.port}`);
 });
 
-var io = require('socket.io')(server);
-
 app.use(express.static(__dirname + '/'));
+
+var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
     console.log('===== socket is connected =====');
@@ -19,10 +19,12 @@ io.on('connection', function (socket) {
     socket.on('change_zone_view1',function(data){
         var _data = data;
         //Bắn socket cho các client khác A
+        console.log("CHANGE VIEW 1");
         socket.broadcast.emit('change_zone_view1',_data);
     })
     socket.on('change_item_view2',function(data){
         var _data = data;
+        console.log("CHANGE VIEW 2");
         socket.broadcast.emit('change_item_view2',_data);
     })
 

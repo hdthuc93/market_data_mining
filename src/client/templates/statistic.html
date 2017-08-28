@@ -1,29 +1,137 @@
-<div class="row" ng-controller="MartketCtrl">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong><span class="fa fa-home"></span> Siêu thị</strong>
-            </div>
-            <div class="panel-body notification-area">
-                <div class="container-fluid">
-                    <form role="form" name="martket" id="martket">
-                        <div class="row form-horizontal">
-                            <uib-tabset active="active">
-                                <uib-tab index="0" heading="Static title">Static content</uib-tab>
-                                <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" disable="tab.disabled">
-                                    {{tab.content}}
-                                </uib-tab>
-                                <uib-tab index="3" select="alertMe()">
-                                    <uib-tab-heading>
-                                        <i class="glyphicon glyphicon-bell"></i> Alert!
-                                    </uib-tab-heading>
-                                    I've got an HTML heading, and a select callback. Pretty cool!
-                                </uib-tab>
-                            </uib-tabset>     
-                        </div>            
-                    </form>
+<div class="row" ng-controller="StatisticCtrl">
+    <div class="col-lg-4 col-md-4 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon green pull-left">
+                    <i class="fa fa-list"></i>
                 </div>
-            </div>
-        </div>
+                <div class="title">{{data.numOfItems}}</div>
+                <div class="comment">Kiện hàng</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon red pull-left">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="title">{{data.numOfInvoices}}</div>
+                <div class="comment">Đơn hàng</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+     <div class="col-lg-4 col-md-4 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon blue pull-left">
+                    <i class="fa fa-support"></i>
+                </div>
+                <div class="title">{{data.numOfDates}}</div>
+                <div class="comment">Số ngày giao dịch</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-5 col-md-5 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <h4>Mặt hàng mua nhiều nhất</h4>
+                <div>
+                    <div ui-grid="FIList" style="max-width: 100%; min-width: 200px" ui-grid-selection ui-grid-resize-columns class="grid"></div>
+                </div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-7 col-md-7 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="comment"><h4>Dự đoán sự kết hợp các món hàng</h4></div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr><th width="80%">Dự đoán</th><th width="80px">%</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Egg</b></td><td><span class="text-success">87%</span></td></tr>
+                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Milk</b></td><td><span class="text-success">77%</span></td></tr>
+                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Milk, Cheese</b></td><td><span class="text-success">57%</span></td></tr>
+                            <tr><td>Nếu mua <b>Bread, Cheese</b> thì sẽ mua <b>Milk</b></td><td><span class="text-success">50%</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+        </rd-widget>
     </div>
 </div>
+
+<!--<div class="row">
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-tasks" title="Servers">
+                <a href="#">Manage</a>
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr><th class="text-center">Món hàng</th><th>Độ chính xác</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>nếu mua Bread Cheese thì sẽ mua Milk</td><td><span class="text-success">67%</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-6">
+        <rd-widget>
+            <rd-widget-header icon="fa-users" title="Users">
+                <input type="text" placeholder="Search" class="form-control input-sm" />
+            </rd-widget-header>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr><th class="text-center">ID</th><th>Username</th><th>Role</th><th>Account</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="text-center">1</td><td>Joe Bloggs</td><td>Super Admin</td><td>AZ23045</td></tr>
+                            <tr><td class="text-center">2</td><td>Timothy Hernandez</td><td>Admin</td><td>AU24783</td></tr>
+                            <tr><td class="text-center">3</td><td>Joe Bickham</td><td>User</td><td>AM23781</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </rd-widget-body>
+            <rd-widget>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <rd-widget>
+                            <rd-widget-header icon="fa-plus" title="Extras">
+                                <button class="btn btn-sm btn-info">Button</button>
+                            </rd-widget-header>
+                            <rd-widget-body>
+                                <div class="message">
+                                    This is a standard message which will also work the ".no-padding" class, I can also <span class="error">be an error message!</span>
+                                </div>
+                                <hr />
+                                <div class="message">
+                                    <a href="http://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a> is included, so you can use <a href="#" tooltip="I'm a tooltip!">tooltips</a> and all of the other native Bootstrap JS components!
+                                </div>
+                            </rd-widget-body>
+                        </rd-widget>
+                    </div>
+                    <div class="col-lg-6">
+                        <rd-widget>
+                            <rd-widget-header icon="fa-cog fa-spin" title="Loading Directive">
+                                <a href="http://tobiasahlin.com/spinkit/" target="_blank">SpinKit</a>
+                            </rd-widget-header>
+                            <rd-widget-body>
+                                <rd-loading></rd-loading>
+                            </rd-widget-body>
+                        </rd-widget>
+                    </div>
+                </div>-->

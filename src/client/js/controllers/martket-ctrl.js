@@ -9,7 +9,7 @@ angular.module('RDash')
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
 
     var _socket = null;
-    _socket = io('http://localhost:3000/');
+    _socket = io(window.location.host);
 
     _socket.io.on('connect_error', function (err) {
         console.log("socket can not connect to server: " + JSON.stringify(err));
