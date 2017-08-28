@@ -347,6 +347,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             drop: function (event, ui) {
                 var isChange = true;
                 var item = $(ui.draggable);
+                var _this = this;
                 //Kiểm tra cho phép drop
                 if (parseInt(item.attr('itemsize')) == 2) {
                     var tdTail = '#detail_area .ngan.ngan' + $(this).attr('itemrow') + '-' + (parseInt($(this).attr('itemcol')) + 1);
@@ -371,40 +372,59 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                     isChange = false;
                 }
 
-                var items = [];
-                if (isChange) {
-                    $(this).append(item.css("position", "inherit"));
+                //var items = [];
+                // if (isChange) {
+                //     console.log("aaaaa",item.parent().attr('itemrow'), _this)
 
-                    /*Thay đổi biến KhuVuc và Build lại*/
-                    var itemList = $("#detail_area td div.item-head");
-                    for (var i = 0; i < itemList.length; i++) {
-                        var _it = {
-                            id: $(itemList[i]).attr('itemid'),
-                            name: $(itemList[i]).attr('itemname'),
-                            row: $(itemList[i]).parent().attr('itemrow'),
-                            col: $(itemList[i]).parent().attr('itemcol'),
-                            size: $(itemList[i]).attr('itemsize'),
-                            color: $(itemList[i]).attr('itemcolor')
-                        }
-                        items.push(_it);
-                    }
-                }
 
-                var khuvucChange = null;
+                //     $(this).append(item.css("position", "inherit"));
+
+                //     /*Thay đổi biến KhuVuc và Build lại*/
+                //     var itemList = $("#detail_area td div.item-head");
+                //     for (var i = 0; i < itemList.length; i++) {
+                //         var _it = {
+                //             id: $(itemList[i]).attr('itemid'),
+                //             name: $(itemList[i]).attr('itemname'),
+                //             row: $(itemList[i]).parent().attr('itemrow'),
+                //             col: $(itemList[i]).parent().attr('itemcol'),
+                //             size: $(itemList[i]).attr('itemsize'),
+                //             color: $(itemList[i]).attr('itemcolor')
+                //         }
+                //         items.push(_it);
+                //     }
+                // }
+
+                var request = {};
                 for (var i in $scope.Zones) {
                     if ($scope.Zones[i].id == $("#detail_area").attr("zoneid")) {
-                        if (items.length) {
-                            $scope.Zones[i].items = items;
+                        // if (items.length) {
+                        //     $scope.Zones[i].items = items;
+                        // }
+
+                        var oldItem = null;
+                        var newItem = null;
+                        for(var ii in $scope.Zones[i].items){
+                            if($scope.Zones[i].items[ii].row == item.parent().attr('itemrow')&&
+                                $scope.Zones[i].items[ii].col == item.parent().attr('itemcol') ){
+                                    oldItem = angular.copy($scope.Zones[i].items[ii]);
+                                    oldItem["newCol"] = parseInt($(_this).attr('itemcol'));
+                                    oldItem["newRow"] = parseInt($(_this).attr('itemrow'));
+                                    $scope.Zones[i].items[ii]["col"]  = parseInt($(_this).attr('itemcol'));
+                                    $scope.Zones[i].items[ii]["row"]  = parseInt($(_this).attr('itemrow'));
+                                    break;
+                                }
                         }
-                        khuvucChange = $scope.Zones[i];
-                        renderView2(khuvucChange);
+                        request["Zone"] = $scope.Zones[i];
+                        request["Action"] = "ChangePos";
+                        request["ItemChange"] = oldItem;
+                        renderView2($scope.Zones[i]);
                         break;
                     }
-                }console.log("1221SSSSSSSSS3334dddd",isChange);
+                }
                 if (isChange) {
                     //Bắn socket thay đổi item ở view2
-                    console.log("23SSSSSSSSSSSSS")
-                    _socket.emit("change_item_view2", khuvucChange);
+                    console.log("SOCKET CHANGE POSITION")
+                    _socket.emit("change_item_view2", request);
                     $scope.renderView1();
                 }
             }
@@ -451,12 +471,11 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         $("#detail_area #control #addtocart").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
-                console.log("ADD CART NE", $scope.cart);
                 var item = $(ui.draggable);
                 for (var i in $scope.Zones) {
                     var zone = $scope.Zones[i];
                     if (zone.id == $("#detail_area").attr("zoneid")) {
-                        for (var j in zone.items) {
+                        for (var j in zone.items) {console.log(zone.items[j]);
                             if (item.attr("itemid") == zone.items[j].id &&
                             parseInt(item.parent().attr('itemrow'))==parseInt(zone.items[j].row) &&
                             parseInt(item.parent().attr('itemcol'))==parseInt(zone.items[j].col)){
@@ -484,7 +503,11 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                 
                                 
                                 $scope.Zones[i].items.splice(j, 1);
-                                _socket.emit("change_item_view2", $scope.Zones[i]);
+
+                                //var request = {action:"remove", item: _it, areaID: $scope.Zones[i]["id"]};
+                                //console.log("======== add ro cart, data change", request);
+
+                                //_socket.emit("change_item_view2", $scope.Zones[i]);
                                 renderView2(zone);
                                 $scope.renderView1();
                                 $scope.$apply();
@@ -521,5 +544,31 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 .addClass("item-tail")
             $ele2.append(item);
         }
+    }
+
+    //Thanh toan don hang
+    $scope.entryBill = function(){
+        var listItem = [];
+        for(var i in $scope.cart){
+            listItem.push({
+                itemID: $scope.cart[i]["id"],
+                quan: $scope.cart[i]["qty"],
+                cellId: $scope.cart[i]["cellId"]
+            })
+        }   
+        console.log("listItem", listItem); return;
+        //INSERT
+        $http.post('/api/invoice', {"listItem":listItem}, {}).then(function successCallBack(res) {
+            var _res = res;
+            var _msg = "Thanh toán thất bại.";
+            if(_res.data.success){
+                $scope.cart = [];
+                $scope.orderPrice = 0;
+                _msg = "Đơn hàng thanh toán thành công.";
+            }
+            helper.popup.info({title: "Thông báo",message: _msg,close: function () { return;}});
+        }, function errorCallback() {
+            helper.popup.info({title: "Lỗi",message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.",close: function () { return;}})
+        });
     }
 }

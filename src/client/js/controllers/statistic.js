@@ -26,16 +26,25 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
             { field: 'price', displayName: 'Giá', type:"number", minWidth: 80,maxWidth: 200 }
         ]
     }
-
-    function getData(){
-        $http.get('/api/statistic', { params: {} }).then(function successCallBack(res) {
-            $scope.data = res.data.data;
-            console.log(12121212,$scope.data);
-        }, function errorCallback() {
-            helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
-        });
-    }
-    getData();
+    
+        function getData(){
+            $http.get('/api/statistic', { params: {} }).then(function successCallBack(res) {
+                $scope.data = res.data.data;
+                console.log(12121212,$scope.data);
+            }, function errorCallback() {
+                helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
+            });
+        }
+        getData();
+        
+        function getDataMining(){
+            $http.get('/api/statistic/mining', { params: {} }).then(function successCallBack(res) {
+                console.log("DATA MINING",res.data.data);
+            }, function errorCallback() {
+                helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
+            });
+        }
+        getDataMining();
 
 
 }
