@@ -1,5 +1,6 @@
 import Item from '../models/item-model';
 import InvoiceDetail from '../models/invoice_detail-model';
+import { sequelize } from "../models/index-model";
 import { convertToDDMMYYYY } from '../utilities/date_time_format'
 
 function getAllItems(req, res) {
@@ -114,41 +115,51 @@ function updateItem(req, res) {
 }
 
 function getItemsBestSeller(req, res) {
+    let sqlStr = `SELECT ITEM.ID AS ID,
+                    ITEM.NAME AS name,
+                    INVOICE_DETAIL.ID AS invoiceDetailID,
+                    INVOICE_DETAIL.ITEM_ID AS itemID
+                FROM ITEM AS ITEM
+                    LEFT OUTER JOIN INVOICE_DETAIL AS INVOICE_DETAIL ON ITEM.ID = INVOICE_DETAIL.ITEM_ID;`;
 
-    Item.findAll({
-        include: [{
-            model: InvoiceDetail
-        }]
-    })
-    .then((results) => {
+    sequelize.query(sqlStr)
+    .spread((results, metadata) => {
         let resLen = results.length;
         let mItem = new Map();
         let lstBestSeller = [], lstTemp = [];
         let maxNum;
+        let objTemp;
 
         for(let i = 0; i < resLen; ++i) {
-            if(!results[i]["INVOICE_DETAIL"] || !results[i]["INVOICE_DETAIL"].itemID)
+            // console.log(results[i].itemID);
+            if(!results[i] || !results[i]["itemID"])
                 continue;
 
             if(mItem.has(results[i].ID)) {
-                mItem[results[i].ID].quan += 1;
+                objTemp = mItem.get(results[i].ID);
+                objTemp.quan += 1;
+                mItem.set(results[i].ID, objTemp);
             } else {
-                mItem[results[i].ID] = {
+                mItem.set(results[i].ID, {
                     name: results[i].name,
                     quan: 1
-                }
+                });
             }
         }
 
-        mItem.forEach((value, key) => {
+        mItem.forEach(function(value, key) {
             lstTemp.push(value);
         });
 
         if(lstTemp.length > 0) {
-            maxNum = lstTemp.reduce((a, b) => {
-                return Math.max(a.quan, b.quan);
-            });
+            maxNum = -1;
 
+            for(let i = 0; i < lstTemp.length; ++i) {
+                if(lstTemp[i].quan > maxNum)
+                    maxNum = lstTemp[i].quan;
+            }
+
+            console.log(maxNum);
             lstBestSeller = lstTemp.filter(item => item.quan === maxNum);
         }
 

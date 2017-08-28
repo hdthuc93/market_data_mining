@@ -6,5 +6,8 @@ const router = express.Router();
 
 router.route('/')
     .get(statisticCtrl.getCommonStatistic)
+
+router.route('/mining')
+    .get(statisticCtrl.calcFPGrowth)
     
 export default router;

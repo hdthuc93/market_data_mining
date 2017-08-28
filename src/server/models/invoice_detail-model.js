@@ -1,5 +1,5 @@
 import { sequelize, Sequelize } from './index-model';
-import Invoice from './Invoice-model';
+import Invoice from './invoice-model';
 import Item from './item-model';
 
 
