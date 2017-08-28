@@ -30,12 +30,12 @@ const Area = sequelize.define('AREA', {
         field: 'NUM_OF_SHELVES'
     },
     xAxis: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
         notNull: true,
         field: 'X_AXIS'
     },
     yAxis: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
         notNull: true,
         field: 'Y_AXIS'
     },
