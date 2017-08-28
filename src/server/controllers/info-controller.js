@@ -14,6 +14,7 @@ function getInfo(req, res) {
                                     i.PRICE as PRICE,
                                     i.SIZE as SIZE,
                                     i.COLOR as COLOR,
+                                    c.ID as CELL_ID,
                                     c.ROW_INDEX as ROW_INDEX,
                                     c.COL_INDEX as COL_INDEX
                         From  AREA as a 
@@ -52,6 +53,7 @@ function getInfo(req, res) {
             if(results[i]["ITEM_ID"]) {
                 lst[j].items.push({
                     id: results[i]["ITEM_ID"],
+                    cellId: results[i]["CELL_ID"],
                     name: results[i]["ITEM_NAME"],
                     price: results[i]["PRICE"],
                     size: results[i]["SIZE"],
