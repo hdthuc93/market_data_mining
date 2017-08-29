@@ -556,7 +556,6 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 cellId: $scope.cart[i]["cellId"]
             })
         }   
-        console.log("listItem", listItem); return;
         //INSERT
         $http.post('/api/invoice', {"listItem":listItem}, {}).then(function successCallBack(res) {
             var _res = res;
