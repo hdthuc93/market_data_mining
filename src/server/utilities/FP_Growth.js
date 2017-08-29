@@ -11,7 +11,7 @@ class FPTree {
 
 let FPGrowth = async function (data, minSupp, minConf) {
     let res, res2, itemsLevel;
-
+    
     minSupp = minSupp * data.length;
     res = countItems(data, minSupp);
     itemsLevel = Object.assign({}, res.itemsLevel);

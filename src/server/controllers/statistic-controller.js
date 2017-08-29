@@ -79,6 +79,7 @@ function calcFPGrowth(req, res) {
                 if(prevID !== results[i].ID) {
                     inputFP.push(temp);
                     temp = Object.assign({}, itemPattern);
+                    prevID = results[i].ID;
                 }
 
                 temp[itemObj[results[i].itemID]] = "y";
