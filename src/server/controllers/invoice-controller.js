@@ -1,3 +1,4 @@
+import Cell from '../models/cell-model';
 import Item from '../models/item-model';
 import Invoice from '../models/invoice-model';
 import InvoiceDetail from '../models/invoice_detail-model';
@@ -7,6 +8,7 @@ function createInvoice(req, res) {
     let itemPrice = {};
     let totalPrice = 0;
     let invoiceID, inputInvoiceDetail = [];
+    let lstCellId = [];
 
     if(!lstItem instanceof Array || lstItem.length === 0) {
         return res.status(500).json({
@@ -23,6 +25,7 @@ function createInvoice(req, res) {
 
         for(let i = 0; i < lstItem.length; ++i) {
             totalPrice += itemPrice[lstItem[i].itemID] * lstItem[i].quan;
+            lstCellId.push(lstItem[i].cellId);
         }
 
         return Invoice.create({ totalPrice: totalPrice, createdDate: new Date() });
@@ -41,6 +44,11 @@ function createInvoice(req, res) {
         return InvoiceDetail.bulkCreate(inputInvoiceDetail);
     })
     .then((result) => {
+        return Cell.destroy({
+            where: { ID: lstCellId }
+        });
+    })
+    .then(() => {
         return res.status(200).json({
             success: true,
             message: "Insert invoice successfully"
