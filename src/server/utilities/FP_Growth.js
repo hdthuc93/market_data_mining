@@ -11,7 +11,7 @@ class FPTree {
 
 let FPGrowth = async function (data, minSupp, minConf) {
     let res, res2, itemsLevel;
-    
+
     minSupp = minSupp * data.length;
     res = countItems(data, minSupp);
     itemsLevel = Object.assign({}, res.itemsLevel);
@@ -282,7 +282,7 @@ let combinationItems = async function(lst, lstRemain, res, index, combinationSet
 
         combinationSet.add(lstRemain.join(""));
         
-        await (combinationItems(lst, [], res, i + 1, combinationSet));
+        await (combinationItems(lst, lstRemain, res, i + 1, combinationSet));
         lstRemain.pop(); 
     }
 }

@@ -85,7 +85,7 @@ function calcFPGrowth(req, res) {
                 temp[itemObj[results[i].itemID]] = "y";
             }
 
-            return FPGrowth(inputFP, 0.1, 0.1);
+            return FPGrowth(inputFP, 0.2, 0.4);
         }
     })
     .then((results) => {
