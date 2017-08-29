@@ -153,14 +153,15 @@ function getItemsBestSeller(req, res) {
 
         if(lstTemp.length > 0) {
             maxNum = -1;
+            let len = lstTemp.length > 10 ? 10 : lstTemp.length;
 
-            for(let i = 0; i < lstTemp.length; ++i) {
-                if(lstTemp[i].quan > maxNum)
-                    maxNum = lstTemp[i].quan;
+            lstTemp.sort((a, b) => {
+                return b.quan - a.quan;
+            })
+
+            for(let i = 0; i < len; ++i) {
+                lstBestSeller.push(lstTemp[i]);
             }
-
-            console.log(maxNum);
-            lstBestSeller = lstTemp.filter(item => item.quan === maxNum);
         }
 
         return res.status(200).json({
