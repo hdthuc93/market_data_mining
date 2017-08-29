@@ -35,7 +35,7 @@
     <div class="col-lg-5 col-md-5 col-xs-12">
         <rd-widget>
             <rd-widget-body>
-                <h4>Mặt hàng mua nhiều nhất</h4>
+                <h4>Top 10 mặt hàng bán chạy</h4>
                 <div>
                     <div ui-grid="FIList" style="max-width: 100%; min-width: 200px" ui-grid-selection ui-grid-resize-columns class="grid"></div>
                 </div>
@@ -52,10 +52,7 @@
                             <tr><th width="80%">Dự đoán</th><th width="80px">%</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Egg</b></td><td><span class="text-success">87%</span></td></tr>
-                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Milk</b></td><td><span class="text-success">77%</span></td></tr>
-                            <tr><td>Nếu mua <b>Bread</b> thì sẽ mua <b>Milk, Cheese</b></td><td><span class="text-success">57%</span></td></tr>
-                            <tr><td>Nếu mua <b>Bread, Cheese</b> thì sẽ mua <b>Milk</b></td><td><span class="text-success">50%</span></td></tr>
+                            <tr ng-repeat="data in dataMining"><td>Nếu mua <b>{{data.from.toString()}}</b> thì sẽ mua <b>{{data.to.toString()}}</b></td><td><span class="text-success">{{Math.round(data.conf*100)}}%</span></td></tr>
                         </tbody>
                     </table>
                 </div>

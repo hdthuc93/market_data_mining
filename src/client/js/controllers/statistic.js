@@ -7,10 +7,10 @@ angular.module('RDash')
     .controller('StatisticCtrl', ['$scope', '$cookieStore', '$http', '$rootScope', '$timeout', 'helper', StatisticCtrl]);
 
 function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
+    $scope.Math = window.Math;
     function initModel(){
-        $scope.item = {
-            
-        };
+        $scope.data = {};
+        $scope.dataMining = {};            
     }
 
     $scope.FIList = {
@@ -23,7 +23,7 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
         multiSelect: false,
         columnDefs: [
             { field: 'name', displayName: 'Tên món hàng', type:"text", minWidth: 190, maxWidth: 400 },
-            { field: 'price', displayName: 'Giá', type:"number", minWidth: 80,maxWidth: 200 }
+            { field: 'quan', displayName: 'Số lượng', type:"number", minWidth: 80,maxWidth: 200 }
         ]
     }
     
@@ -37,9 +37,23 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
         }
         getData();
         
+        function getBestSeller(){
+            $http.get('/api/item/bestseller', { params: {} }).then(function successCallBack(res) {
+                console.log("BEST SELLER",res.data.data);
+                $scope.FIList.data = res.data.data;
+            }, function errorCallback() {
+                helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
+            });
+        }
+        getBestSeller();
+
         function getDataMining(){
             $http.get('/api/statistic/mining', { params: {} }).then(function successCallBack(res) {
                 console.log("DATA MINING",res.data.data);
+                $scope.dataMining = res.data.data;
+                $scope.dataMining.sort(function(a, b) {
+                    return b["conf"] - a["conf"];
+                });
             }, function errorCallback() {
                 helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
             });

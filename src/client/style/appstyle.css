@@ -486,7 +486,7 @@ table{
 div.khuvuc-container {
     height: auto;
     width: auto;
-    border: 1px solid #333;
+    /*border: 1px solid #333;*/
     background-color:  #fff;
     cursor: move;
 }
@@ -554,6 +554,7 @@ table.khuvuc{
     padding: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: move;
 }
 #detail_area td.shelve-name{
     padding: 5px;
