@@ -52,6 +52,13 @@ function calcFPGrowth(req, res) {
     let inputFP = [];
     let temp;
     let sqlStr;
+    let minSupp = 0.2, minConf = 0.4;
+
+    if(req.body.minSupp && req.body.minSupp >= 0 && req.body.minSupp <= 1)
+        minSupp = req.body.minSupp;
+
+    if(req.body.minConf && req.body.minConf >= 0 && req.body.minConf <= 1)
+        minConf = req.body.minConf;
 
     Item.findAll()
     .then((items) => {
@@ -85,7 +92,7 @@ function calcFPGrowth(req, res) {
                 temp[itemObj[results[i].itemID]] = "y";
             }
 
-            return FPGrowth(inputFP, 0.2, 0.4);
+            return FPGrowth(inputFP, minSupp, minConf);
         }
     })
     .then((results) => {
