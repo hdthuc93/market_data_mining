@@ -16,7 +16,7 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
     $scope.FIList = {
         minRowsToShow: 10,
         enableSorting: false,
-        rowHeight: 35,
+        rowHeight: 30,
         data: [{name: "Bread", price:3000},{name: "Egg", price:5000},
         {name: "Milk", price:15000},{name: "Cheese", price:17500},{name: "Corn", price:10000},{name: "Tomato", price:30000}],
         enableRowSelection: true,
@@ -30,7 +30,6 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
         function getData(){
             $http.get('/api/statistic', { params: {} }).then(function successCallBack(res) {
                 $scope.data = res.data.data;
-                console.log(12121212,$scope.data);
             }, function errorCallback() {
                 helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
             });
@@ -39,7 +38,6 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
         
         function getBestSeller(){
             $http.get('/api/item/bestseller', { params: {} }).then(function successCallBack(res) {
-                console.log("BEST SELLER",res.data.data);
                 $scope.FIList.data = res.data.data;
             }, function errorCallback() {
                 helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })

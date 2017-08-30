@@ -26,8 +26,12 @@ io.on('connection', function (socket) {
     })
     socket.on('change_item_view2', function(data){
         var _data = data;
-        // console.log("view2", _data);
-        socket.broadcast.emit('change_item_view2',_data);
+        if(_data["Action"] == "ChangePos"){
+            //Cập nhật vị trí kiện hàng
+            //...
+            //Sau khi cập nhật thành công, Bắn socket cho các client khác A
+            socket.broadcast.emit('change_item_view2',_data["Zone"]);
+        }
     })
 
 });

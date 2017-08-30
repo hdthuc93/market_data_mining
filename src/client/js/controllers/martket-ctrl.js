@@ -372,35 +372,9 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                     isChange = false;
                 }
 
-                //var items = [];
-                // if (isChange) {
-                //     console.log("aaaaa",item.parent().attr('itemrow'), _this)
-
-
-                //     $(this).append(item.css("position", "inherit"));
-
-                //     /*Thay đổi biến KhuVuc và Build lại*/
-                //     var itemList = $("#detail_area td div.item-head");
-                //     for (var i = 0; i < itemList.length; i++) {
-                //         var _it = {
-                //             id: $(itemList[i]).attr('itemid'),
-                //             name: $(itemList[i]).attr('itemname'),
-                //             row: $(itemList[i]).parent().attr('itemrow'),
-                //             col: $(itemList[i]).parent().attr('itemcol'),
-                //             size: $(itemList[i]).attr('itemsize'),
-                //             color: $(itemList[i]).attr('itemcolor')
-                //         }
-                //         items.push(_it);
-                //     }
-                // }
-
                 var request = {};
                 for (var i in $scope.Zones) {
                     if ($scope.Zones[i].id == $("#detail_area").attr("zoneid")) {
-                        // if (items.length) {
-                        //     $scope.Zones[i].items = items;
-                        // }
-
                         var oldItem = null;
                         var newItem = null;
                         for(var ii in $scope.Zones[i].items){
@@ -424,6 +398,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 if (isChange) {
                     //Bắn socket thay đổi item ở view2
                     console.log("SOCKET CHANGE POSITION")
+                    console.log(11111, request)
                     _socket.emit("change_item_view2", request);
                     $scope.renderView1();
                 }
@@ -451,7 +426,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                         $scope.Zones[i].items.splice(j, 1);
                                         renderView2(zone);
                                         $scope.renderView1();
-                                        _socket.emit("change_item_view2", $scope.Zones[i]);
+                                        //_socket.emit("change_item_view2", $scope.Zones[i]); PENDING
                                         break;
                                     }
                                 }
@@ -504,10 +479,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                                 
                                 $scope.Zones[i].items.splice(j, 1);
 
-                                //var request = {action:"remove", item: _it, areaID: $scope.Zones[i]["id"]};
-                                //console.log("======== add ro cart, data change", request);
-
-                                //_socket.emit("change_item_view2", $scope.Zones[i]);
+                                //_socket.emit("change_item_view2", $scope.Zones[i]); PENDING
                                 renderView2(zone);
                                 $scope.renderView1();
                                 $scope.$apply();
