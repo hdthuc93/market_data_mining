@@ -11,17 +11,32 @@ class FPTree {
 
 let FPGrowth = async function (data, minSupp, minConf) {
     let res, res2, itemsLevel;
-
+    let output = {};
+    let outputFI = {};
+    
     minSupp = minSupp * data.length;
+
     res = countItems(data, minSupp);
     itemsLevel = Object.assign({}, res.itemsLevel);
+    
     res = createTree(res);
+
     res = createCondPatternBase(res);
     res.itemsLevel = itemsLevel;
-    res = await calcCondPatternBase(res, minSupp);
-    res2 = associationRule(res, minConf, data);
     
-    return res2;
+    res = await calcCondPatternBase(res, minSupp);
+    outputFI = res.slice();
+    
+    res2 = associationRule(res, minConf, data);
+    output.ar = res2;
+
+    outputFI.forEach((val, key) => {
+        val.supp = Math.round((val.level / data.length) * 100) / 100;
+        delete val.level;
+    });
+
+    output.fi = outputFI;
+    return output;
 }
 
 let countItems = function(lstObj, minSupp) {
