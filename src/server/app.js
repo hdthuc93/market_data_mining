@@ -1,6 +1,7 @@
 import app from './configs/dependencies';
 import connection from './configs/connection';
 import areaCtrl from './controllers/area-controller'
+import cellCtrl from './controllers/cell-controller'
 var express = require('express');
 
 var server = app.listen(connection.port, () => {
@@ -27,10 +28,12 @@ io.on('connection', function (socket) {
     socket.on('change_item_view2', function(data){
         var _data = data;
         if(_data["Action"] == "ChangePos"){
+            console.log(_data);
             //Cập nhật vị trí kiện hàng
             //...
             //Sau khi cập nhật thành công, Bắn socket cho các client khác A
             socket.broadcast.emit('change_item_view2',_data["Zone"]);
+            cellCtrl.updatePosition(_data.ItemChange);
         }
     })
 
