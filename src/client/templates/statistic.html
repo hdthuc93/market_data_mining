@@ -50,9 +50,9 @@
                 <h4 style="font-weight: bold">Khai thác dữ liệu</h4>
                 <div class="form-group">
                     <form name="formInputData" role="form">
-                        <label>Min Support (%)&nbsp;&nbsp;</label><input ng-model="data.minSupp" type="number" name="minsupp" class="input input-sm form-control"  style="display: inline; width: 5em;"/>
-                        <label>&nbsp;&nbsp;Min Confidence (%)&nbsp;&nbsp;</label><input ng-model="data.minConf" type="number" name="minconf" class="input input-sm form-control" style="display: inline; width: 5em;"/>
-                        <button type="submit" class="btn btn-primary" ng-click="getDataMining()">Phân tích</button>
+                        <label>Min Support (%)&nbsp;&nbsp;</label><input ng-init="data.minSupp = 20" ng-model="data.minSupp" type="number" name="minsupp" class="input input-sm form-control"  style="display: inline; width: 5em;"/>
+                        <label>&nbsp;&nbsp;Min Confidence (%)&nbsp;&nbsp;</label><input ng-init="data.minConf = 40" ng-model="data.minConf" type="number" name="minconf" class="input input-sm form-control" style="display: inline; width: 5em;"/>
+                        <button type="submit" class="btn btn-primary" ng-click="getDataMining()">Khai thác</button>
                     </form>
                 </div>
                 <div class="row">

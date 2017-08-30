@@ -60,7 +60,12 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
                 return;
             }
 
-            $http.get('/api/statistic/mining', { params: {"minSupp": parseFloat(($scope.data.minSupp/100).toFixed(1)), "minConf": parseFloat(($scope.data.minConf/100).toFixed(1))} }).then(function successCallBack(res) {
+            var _param = {
+                "minSupp": parseFloat(($scope.data.minSupp/100).toFixed(1)),
+                "minConf": parseFloat(($scope.data.minConf/100).toFixed(1))
+            }
+
+            $http.get('/api/statistic/mining', { params: _param }).then(function successCallBack(res) {
                 $scope.dataMining = res.data.data;
                 // $scope.dataMining.ar.sort(function(a, b) {
                 //     return b["conf"] - a["conf"];
