@@ -13,7 +13,7 @@ let FPGrowth = async function (data, minSupp, minConf) {
     let res, res2, itemsLevel;
     let output = {};
     let outputFI = {};
-    
+
     minSupp = minSupp * data.length;
 
     res = countItems(data, minSupp);

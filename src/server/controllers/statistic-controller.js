@@ -53,12 +53,12 @@ function calcFPGrowth(req, res) {
     let temp;
     let sqlStr;
     let minSupp = 0.2, minConf = 0.4;
-
+    
     if(req.query.minSupp && req.query.minSupp >= 0 && req.query.minSupp <= 1)
-        minSupp = req.body.minSupp;
+        minSupp = req.query.minSupp;
 
     if(req.query.minConf && req.query.minConf >= 0 && req.query.minConf <= 1)
-        minConf = req.body.minConf;
+        minConf = req.query.minConf;
 
     Item.findAll()
     .then((items) => {
