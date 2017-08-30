@@ -1,5 +1,5 @@
 /**
- * Item Master Controller
+ * Statistic Controller
  * Implement: Phong Nguyen
  */
 
@@ -8,15 +8,23 @@ angular.module('RDash')
 
 function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
     $scope.Math = window.Math;
-    function initModel(){
-        $scope.data = {};
-        $scope.dataMining = {};            
+    $scope.data = {
+        minSupp: 0,
+        minConf: 0
     }
+    function initModel(){
+        $scope.data = {
+            minSupp: 20,
+            minConf: 40
+        };
+        $scope.dataMining = {};          
+    }
+    initModel();
 
     $scope.FIList = {
         minRowsToShow: 10,
         enableSorting: false,
-        rowHeight: 30,
+        rowHeight: 23,
         data: [{name: "Bread", price:3000},{name: "Egg", price:5000},
         {name: "Milk", price:15000},{name: "Cheese", price:17500},{name: "Corn", price:10000},{name: "Tomato", price:30000}],
         enableRowSelection: true,
@@ -45,18 +53,26 @@ function StatisticCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper
         }
         getBestSeller();
 
-        function getDataMining(){
-            $http.get('/api/statistic/mining', { params: {} }).then(function successCallBack(res) {
-                console.log("DATA MINING",res.data.data);
+        $scope.getDataMining = function(){
+            console.log($scope.formInputData, typeof $scope.data.minSupp , $scope.data.minConf)
+            if($scope.data.minSupp<0 || $scope.data.minSupp>100 || $scope.data.minConf < 0|| $scope.data.minConf > 100){
+                helper.popup.info({ title: "Lỗi", message: "Giá trị phải là số dương và không vượt quá 100.", close: function () { return; } })
+                return;
+            }
+
+            $http.get('/api/statistic/mining', { params: {"minSupp": parseFloat(($scope.data.minSupp/100).toFixed(1)), "minConf": parseFloat(($scope.data.minConf/100).toFixed(1))} }).then(function successCallBack(res) {
                 $scope.dataMining = res.data.data;
-                $scope.dataMining.sort(function(a, b) {
-                    return b["conf"] - a["conf"];
-                });
+                // $scope.dataMining.ar.sort(function(a, b) {
+                //     return b["conf"] - a["conf"];
+                // });
+                // $scope.dataMining.fi.sort(function(a, b) {
+                //     return b["supp"] - a["supp"];
+                // });
             }, function errorCallback() {
                 helper.popup.info({ title: "Lỗi", message: "Xảy ra lỗi trong quá trình thực hiện, vui lòng thử lại.", close: function () { return; } })
             });
         }
-        getDataMining();
+        $scope.getDataMining();
 
 
 }

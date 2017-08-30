@@ -398,7 +398,6 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 if (isChange) {
                     //Bắn socket thay đổi item ở view2
                     console.log("SOCKET CHANGE POSITION")
-                    console.log(11111, request)
                     _socket.emit("change_item_view2", request);
                     $scope.renderView1();
                 }

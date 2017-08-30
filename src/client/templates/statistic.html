@@ -1,17 +1,18 @@
 <div class="row" ng-controller="StatisticCtrl">
-    <div class="col-lg-4 col-md-4 col-xs-12">
-        <rd-widget>
-            <rd-widget-body>
-                <div class="widget-icon green pull-left">
-                    <i class="fa fa-list"></i>
-                </div>
-                <div class="title">{{data.numOfItems}}</div>
-                <div class="comment">Kiện hàng</div>
-            </rd-widget-body>
-        </rd-widget>
-    </div>
-    <div class="col-lg-4 col-md-4 col-xs-12">
-        <rd-widget>
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="form-group">
+            <rd-widget>
+                <rd-widget-body>
+                    <div class="widget-icon green pull-left">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div class="title">{{data.numOfItems}}</div>
+                    <div class="comment">Kiện hàng</div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+        <div class="form-group">
+           <rd-widget>
             <rd-widget-body>
                 <div class="widget-icon red pull-left">
                     <i class="fa fa-shopping-cart"></i>
@@ -20,9 +21,9 @@
                 <div class="comment">Đơn hàng</div>
             </rd-widget-body>
         </rd-widget>
-    </div>
-     <div class="col-lg-4 col-md-4 col-xs-12">
-        <rd-widget>
+        </div>
+        <div class="form-group">
+           <rd-widget>
             <rd-widget-body>
                 <div class="widget-icon blue pull-left">
                     <i class="fa fa-support"></i>
@@ -31,30 +32,50 @@
                 <div class="comment">Số ngày giao dịch</div>
             </rd-widget-body>
         </rd-widget>
+        </div>
     </div>
-    <div class="col-lg-5 col-md-5 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-xs-12">
         <rd-widget>
             <rd-widget-body>
-                <h4>Top 10 mặt hàng bán chạy</h4>
+                <h4 style="font-weight: bold;">Top 10 mặt hàng bán chạy</h4>
                 <div>
-                    <div ui-grid="FIList" style="max-width: 100%; min-width: 200px" ui-grid-selection ui-grid-resize-columns class="grid"></div>
+                    <div ui-grid="FIList" style="max-width: 100%; min-width: 200px" ui-grid-resize-columns class="grid"></div>
                 </div>
             </rd-widget-body>
         </rd-widget>
     </div>
-    <div class="col-lg-7 col-md-7 col-xs-12">
+    <div class="col-xs-12">
         <rd-widget>
             <rd-widget-body>
-                <div class="comment"><h4>Dự đoán sự kết hợp các món hàng</h4></div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr><th width="80%">Dự đoán</th><th width="80px">%</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="data in dataMining"><td>Nếu mua <b>{{data.from.toString()}}</b> thì sẽ mua <b>{{data.to.toString()}}</b></td><td><span class="text-success">{{Math.round(data.conf*100)}}%</span></td></tr>
-                        </tbody>
-                    </table>
+                <h4 style="font-weight: bold">Khai thác dữ liệu</h4>
+                <div class="form-group">
+                    <form name="formInputData" role="form">
+                        <label>Min Support (%)&nbsp;&nbsp;</label><input ng-model="data.minSupp" type="number" name="minsupp" class="input input-sm form-control"  style="display: inline; width: 5em;"/>
+                        <label>&nbsp;&nbsp;Min Confidence (%)&nbsp;&nbsp;</label><input ng-model="data.minConf" type="number" name="minconf" class="input input-sm form-control" style="display: inline; width: 5em;"/>
+                        <button type="submit" class="btn btn-primary" ng-click="getDataMining()">Phân tích</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="table-responsive col-xs-12 col-md-6">
+                            <table class="table">
+                                <thead>
+                                    <tr><th width="80%">Nhóm món hàng phổ biến</th><th width="80px">Supp.</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="data in dataMining.fi"><td><b>{{data.name.toString()}}</b></td><td><span class="text-success">{{Math.round(data.supp*100)}}%</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="table-responsive col-xs-12 col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr><th width="80%">Dự đoán sự kết hợp các món hàng</th><th width="80px">Conf.</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in dataMining.ar"><td>Nếu mua <b>{{data.from.toString()}}</b> thì sẽ mua <b>{{data.to.toString()}}</b></td><td><span class="text-success">{{Math.round(data.conf*100)}}%</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </rd-widget-body>
         </rd-widget>
