@@ -7,6 +7,7 @@ angular.module('RDash')
     .controller('ItemCtrl', ['$scope', '$cookieStore', '$http', '$rootScope', '$timeout', 'helper', ItemCtrl]);
 
 function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
+    //Khởi tạo giá trị ban đầu cho các biến
     function initModel(){
         $scope.item = {
             name:"",
@@ -18,6 +19,7 @@ function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
         };
     }
 
+    //Khởi tạo danh sách kiện hàng (giống như 1 bảng)
     $scope.ItemList = {
         minRowsToShow: 10,
         enableSorting: false,
@@ -51,10 +53,13 @@ function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
             });
         }
     }
+
+    //Hàm làm trống các field để thêm kiện hàng
     $scope.insertItem = function(data){
         initModel();
     }
 
+    //Lưu kiện hàng mới xuống DB
     $scope.save = function(){
         if($scope.formItem.$invalid){
             helper.popup.info({
@@ -105,6 +110,7 @@ function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
         
     }
 
+    //Xóa kiện hàng ra khỏi danh sách ==> chưa làm
     $scope.deleteItem = function () {
         helper.popup.confirm({
             title: "Xoá kiện hàng",
@@ -129,6 +135,7 @@ function ItemCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
         })
     };
 
+    //Lấy danh sách kiện hàng
     $scope.getItemList = function(){
         $http.get('/api/item', { params: { } }).then(function successCallBack(res) {
             console.log("item list",res.data.data);

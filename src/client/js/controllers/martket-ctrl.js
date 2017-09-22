@@ -8,6 +8,7 @@ angular.module('RDash')
 
 function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) {
 
+    //Khởi tạo socket.io ==> dùng để gửi thông điệp Client đến Server
     var _socket = null;
     _socket = io(window.location.host);
 
@@ -21,6 +22,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         console.log("****** socket connected")
     });
 
+    //Đây là socket khi View 1 có thay đổi (socket này được gửi từ Server)
     _socket.on("change_zone_view1", function (data) {
         var zone = data;
         for (var i in $scope.Zones) {
@@ -32,6 +34,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     });
 
+    //Đây là socket khi View 2 có thay đổi (socket này được gửi từ Server)
     _socket.on("change_item_view2", function (data) {
         var zone = data;console.log(zone,"change view 1");
         for (var i in $scope.Zones) {
@@ -47,6 +50,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     });
 
+    //Hàm khởi tạo các biến
     function initModel() {
         $scope.data = {
             name: "",
@@ -63,6 +67,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
     initModel();
 
+    //Hàm lấy danh sách khu vực lên
     function getZoneList() {
         $http.get('/api/info', { params: {} }).then(function successCallBack(res) {
             $scope.Zones = res.data.data;
@@ -74,7 +79,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
     }
     getZoneList();
 
-
+    //Khởi tạo Danh sách khu vực: hiển thị như 1 bảng
     $scope.zoneList = {
         minRowsToShow: 10,
         enableSorting: false,
@@ -91,6 +96,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         ]
     }
 
+    //Hàm thêm kệ ==> chưa làm chức năng này
     $scope.addShelve = function () {
         $scope.data = {
             name: "",
@@ -104,6 +110,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
     }
 
+    //Hàm này lưu kệ mới vừa thêm ==> chưa làm chức năng này
     $scope.save = function () {
         if ($scope.martketForm.$invalid) {
             helper.popup.info({
@@ -133,7 +140,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     }
 
-    //Render View 1
+    //Hàm xây dựng cho Tab View 1
     $scope.renderView1 = function () {
         if (!$scope.Zones.length) {
             return;
@@ -191,7 +198,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
-        //Sự kiện tô chọn Khu vực để chọn sang View 2
+        //Xây dựng sự kiện tô chọn Khu vực để chọn sang View 2
         ele.selectable(
             {
                 filter: ".khuvuc-container",
@@ -221,6 +228,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         );
 
+        //Xây dựng sự kiện kéo khu vực sang vị trí khác
         $(".khuvuc-container").draggable({
             create: function (event, ui) {
             },
@@ -244,19 +252,19 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         });
     }
 
-    //Render View 2
+    //Hàm xây dựng tab View 2
     function renderView2(khuvuc) {
         var shelves = khuvuc.shelves, col = khuvuc.col, row = khuvuc.row, items = khuvuc.items, name = khuvuc.id;
         var sk = 1;       
         
-        //Thêm 2 button action và tên hàng
+        //Thêm 2 button action (Xóa kiện hàng và Thêm vào giỏ) và tên hàng
         var content = '<div id="control" class="control col-xs-12"><span style="border: none">Khu vực ' + name + ' </span><span id="remove" class="fa fa-trash"></span><span id="addtocart" class="fa fa-cart-plus"></span></div><table border="0" class="inline"+ width="' + slCot * 50 + '">';
         for (var i = 1; i <= row; i++) {
             content = content + '<tr><td class="ngan"><b>&nbsp;Hàng ' + i + '&nbsp;</b></td></tr>';
         }
         content = content + '</table>';
 
-        //Thêm các kệ
+        //Xây các kệ ra màn hình (View 2)
         while (sk <= shelves) {
             var sd = 1;
             var slCot = col;
@@ -281,11 +289,10 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             var item = khuvuc.items[j];
             fillItemView2(item);
         }
-
         setupView2();
     }
 
-    //Render kệ trong View 1 
+    //Xây các kệ trong View 1 ra màn hình
     function renderShelveView1(shelves, col, row, items) {
         var sd = 1;
         var slCot = shelves * col;
@@ -304,7 +311,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         return content;
     }
 
-    //Tính góc xoay
+    //Tính góc xoay ==> Chưa làm chức năng này
     function getDeg(ele) {
         var obj = $(ele);
         var angle = 0;
@@ -341,7 +348,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
-        //CHANGE ITEM POSITION
+        //Đổi vị trí các kiện hàng
         $("#detail_area table.ke td.ngan").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
@@ -404,7 +411,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
-        //REMOVE
+        //Xóa kiện hàng ra khỏi kệ
         $("#detail_area #control #remove").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
@@ -441,7 +448,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
             }
         });
 
-        //ADD ITEM TO CART
+        //Thêm kiện hàng vào giỏ hàng
         $("#detail_area #control #addtocart").droppable({
             accept: "td div.item-head",
             drop: function (event, ui) {
@@ -493,7 +500,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
 
     }
 
-    //Fill Item trong View 2
+    //Hàm sắp xếp các Kiện hàng lên kệ
     function fillItemView2(data) {
         var itemData = data;
         var $ele = $("#detail_area td[itemrow='" + itemData.row + "'][itemcol='" + itemData.col + "']");
@@ -517,7 +524,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
         }
     }
 
-    //Thanh toan don hang
+    //Thanh toán đơn hàng
     $scope.entryBill = function(){
         var listItem = [];
         for(var i in $scope.cart){
@@ -527,7 +534,7 @@ function MartketCtrl($scope, $cookieStore, $http, $rootScope, $timeout, helper) 
                 cellId: $scope.cart[i]["cellId"]
             })
         }   
-        //INSERT
+        //Lưu đơn hàng xuống Database
         $http.post('/api/invoice', {"listItem":listItem}, {}).then(function successCallBack(res) {
             var _res = res;
             var _msg = "Thanh toán thất bại.";
